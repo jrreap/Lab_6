@@ -19,7 +19,7 @@ public abstract class Action {
     public boolean fromSpaceVaild(){
         boolean valid = false;
         if(game.board.inBounds(fromSpaceRow, fromSpaceColumn)){
-            if()
+            if(game.turn.contains())
         }
     }
 }
