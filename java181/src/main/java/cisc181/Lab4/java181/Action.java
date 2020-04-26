@@ -65,5 +65,7 @@ public abstract class Action {
         return piece.validPath(fromSpaceRow, fromSpaceColumn, toSpaceRow, toSpaceColumn);
     }
 
+    public abstract boolean validAction();
 
+    public abstract void performAction();
 }
