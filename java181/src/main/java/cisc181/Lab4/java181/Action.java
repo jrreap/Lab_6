@@ -25,4 +25,39 @@ public abstract class Action {
         }
         return valid;
     }
+
+    public boolean toSpaceValid(boolean beEmpty){
+        BoardSpace[][] spaces = game.getBoard().getSpaces();
+        ArrayList<Piece> team = game.getOpponentTeam().getTeamPieces();
+
+        if(game.getBoard().inBounds(toSpaceRow, toSpaceColumn)){
+            if(beEmpty){
+                if(spaces[toSpaceRow][toSpaceColumn].isEmpty()){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            else {
+                if(team.contains(spaces[toSpaceRow][toSpaceColumn].getPiece())){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+        else {
+            return false;
+        }
+    }
+
+    public boolean validActionPath() {
+        BoardSpace[][] spaces = game.getBoard().getSpaces();
+        Piece piece = spaces[fromSpaceRow][fromSpaceColumn].getPiece();
+        return piece.validPath(fromSpaceRow, fromSpaceColumn, toSpaceRow, toSpaceColumn);
+    }
+
+
 }
