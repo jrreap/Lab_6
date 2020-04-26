@@ -9,6 +9,19 @@ public class ActionMove extends Action {
 
     @Override
     public boolean validAction() {
+        if(fromSpaceVaild() && toSpaceValid(true)) {
+            BoardSpace[][] spaces = game.getBoard().getSpaces();
+            return spaces[fromSpaceRow][fromSpaceColumn].getPiece().validPath(
+                    fromSpaceRow, fromSpaceColumn, toSpaceRow, toSpaceColumn
+            );
+        }
+        else {
+            return false;
+        }
+    }
+
+    @Override
+    public void performAction() {
 
     }
 }
