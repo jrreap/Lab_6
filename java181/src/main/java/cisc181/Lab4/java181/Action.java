@@ -7,23 +7,10 @@ public abstract class Action {
     int toSpaceRow;
     int toSpaceColumn;
 
-    public int getFromSpaceColumn() {
-        return fromSpaceColumn;
-    }
-
-    public int getFromSpaceRow() {
-        return fromSpaceRow;
-    }
-
-    public int getToSpaceColumn() {
-        return toSpaceColumn;
-    }
-
-    public int getToSpaceRow() {
-        return toSpaceRow;
-    }
-
-    public Game181 getGame() {
-        return game;
+    public boolean fromSpaceVaild(){
+        boolean valid = false;
+        if(game.board.inBounds(fromSpaceRow, fromSpaceColumn)){
+            if()
+        }
     }
 }
