@@ -11,8 +11,8 @@ public class ActionMove extends Action {
     public boolean validAction() {
         if(fromSpaceValid() && toSpaceValid(true)) {
             BoardSpace[][] spaces = game.getBoard().getSpaces();
-            return spaces[fromSpaceRow][fromSpaceColumn].getPiece().validPath(
-                    fromSpaceRow, fromSpaceColumn, toSpaceRow, toSpaceColumn
+            return spaces[fromSpaceRow][fromSpaceCol].getPiece().validPath(
+                    fromSpaceRow, fromSpaceCol, toSpaceRow, toSpaceCol
             );
         }
         else {
@@ -24,8 +24,8 @@ public class ActionMove extends Action {
     public void performAction() {
         BoardSpace[][] spaces = game.getBoard().getSpaces();
 
-        Piece piece = spaces[fromSpaceRow][fromSpaceColumn].removePiece();
-        spaces[toSpaceRow][toSpaceColumn].setPiece(piece);
+        Piece piece = spaces[fromSpaceRow][fromSpaceCol].removePiece();
+        spaces[toSpaceRow][toSpaceCol].setPiece(piece);
 
         game.changeTurn();
     }

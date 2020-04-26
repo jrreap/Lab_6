@@ -117,12 +117,11 @@ public class ActionTest {
         assertTrue((move2.validAction()));  // valid because all of the conditions above are true
 
         // when ready to test ActionAttack - comment this line until you are ready
-        //testActionAttack();
+        testActionAttack();
         // if not ready to test ActioinRecruit - comment this line until you are ready
         //testActionRecruit();
     }
 
-    /*
     public void testActionAttack() {
 
         System.out.println("Testing ActionAttack");
@@ -168,6 +167,7 @@ public class ActionTest {
     }
 
 
+    /*
     public void testActionRecruit() {
 
         System.out.println("Testing ActionRecruit");
