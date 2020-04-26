@@ -13,6 +13,15 @@ First make a github account, you'll need it to use git here
 4) Then select `Clone`
 5) You should now have the full repository cloned. Run a few of the tests to make sure everything is working
 
+### Set the Author flag
+
+1) Now go back to `File` and select `Settings`
+2) In the top left type 'github' into the search bar
+3) There should be a new tab on the left of this windows labled `GitHub`, select it
+4) Now it should appear with a window of all git accounts on this computer. If you see your account here, congrats you're done! If not click the small `+` icon on the right and login to your github account
+5) Make sure your account has appeared, and then click `Apply` in the bottom right of the window to save your settings. 
+6) Congrats now you can use Git within Android Studio
+
 ### Commit/Push/Pull
 
 In the bottom left corner there should now be a new tab labled `Version Control`. You can open it quickly by pressing `Alt` and `9`
