@@ -1,5 +1,8 @@
 package cisc181.Lab4.java181;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public abstract class Action {
     private Game181 game;
     private int fromSpaceRow;
@@ -17,12 +20,15 @@ public abstract class Action {
     }
 
     public boolean fromSpaceVaild(){
-        boolean valid = false;
         if(game.getBoard().inBounds(fromSpaceRow, fromSpaceColumn)){
-            if(game.turn.contains()){
-                valid = true;
+            BoardSpace[][] spaces = game.getBoard().getSpaces();
+            ArrayList<Piece> team = game.getCurrentTeam().getTeamPieces();
+
+            if(team.contains(spaces[fromSpaceRow][fromSpaceColumn].getPiece())) {
+                return true;
             }
         }
-        return valid;
+
+        return false;
     }
 }
