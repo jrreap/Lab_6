@@ -4,7 +4,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class ActionTest {
 
@@ -119,7 +120,7 @@ public class ActionTest {
         // when ready to test ActionAttack - comment this line until you are ready
         testActionAttack();
         // if not ready to test ActioinRecruit - comment this line until you are ready
-        //testActionRecruit();
+        testActionRecruit();
     }
 
     public void testActionAttack() {
@@ -166,10 +167,7 @@ public class ActionTest {
         assertFalse((attack2.validAction()));  // invalid because PieceSharkBait can't attack
     }
 
-
-    /*
     public void testActionRecruit() {
-
         System.out.println("Testing ActionRecruit");
         ourGame.getBoard().getSpaces()[0][0].setPiece(nemoA);
         ourGame.getBoard().getSpaces()[0][3].setPiece(nemoB);
@@ -210,6 +208,4 @@ public class ActionTest {
         assertTrue(recruit2.validActionPath());  // valid path for a PieceSharkBait
         assertTrue((recruit2.validAction()));  // valid because PieceSharkBait can recruit
     }
-     */
-
 }
