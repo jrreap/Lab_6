@@ -1,11 +1,11 @@
 package cisc181.Lab4.java181;
 
 public abstract class Action {
-    private Game181 game;
-    private int fromSpaceRow;
-    private int fromSpaceColumn;
-    private int toSpaceRow;
-    private int toSpaceColumn;
+    protected Game181 game;
+    protected int fromSpaceRow;
+    protected int fromSpaceColumn;
+    protected int toSpaceRow;
+    protected int toSpaceColumn;
 
     public Action(Game181 game, int fromSpaceRow, int fromSpaceColumn,
                   int toSpaceRow, int toSpaceColumn) {
@@ -59,5 +59,7 @@ public abstract class Action {
         return piece.validPath(fromSpaceRow, fromSpaceColumn, toSpaceRow, toSpaceColumn);
     }
 
+    public abstract boolean validAction();
 
+    public abstract void performAction();
 }
