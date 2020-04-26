@@ -9,7 +9,7 @@ public class ActionMove extends Action {
 
     @Override
     public boolean validAction() {
-        if(fromSpaceVaild() && toSpaceValid(true)) {
+        if(fromSpaceValid() && toSpaceValid(true)) {
             BoardSpace[][] spaces = game.getBoard().getSpaces();
             return spaces[fromSpaceRow][fromSpaceColumn].getPiece().validPath(
                     fromSpaceRow, fromSpaceColumn, toSpaceRow, toSpaceColumn
@@ -22,6 +22,11 @@ public class ActionMove extends Action {
 
     @Override
     public void performAction() {
+        BoardSpace[][] spaces = game.getBoard().getSpaces();
 
+        Piece piece = spaces[fromSpaceRow][fromSpaceColumn].removePiece();
+        spaces[toSpaceRow][toSpaceColumn].setPiece(piece);
+
+        game.changeTurn();
     }
 }

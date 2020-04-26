@@ -19,7 +19,7 @@ public abstract class Action {
         this.toSpaceRow = toSpaceRow;
     }
 
-    public boolean fromSpaceVaild(){
+    public boolean fromSpaceValid(){
         if(game.getBoard().inBounds(fromSpaceRow, fromSpaceColumn)){
             BoardSpace[][] spaces = game.getBoard().getSpaces();
             ArrayList<Piece> team = game.getCurrentTeam().getTeamPieces();
