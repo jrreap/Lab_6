@@ -1,5 +1,7 @@
 package cisc181.Lab4.java181;
 
+import java.util.ArrayList;
+
 public class ActionMove extends Action {
 
     public ActionMove(Game181 game, int fromSpaceRow, int fromSpaceColumn,
@@ -9,10 +11,10 @@ public class ActionMove extends Action {
 
     @Override
     public boolean validAction() {
-        if(fromSpaceValid() && toSpaceValid(true)) {
+        if(fromSpaceVaild() && toSpaceValid(true)) {
             BoardSpace[][] spaces = game.getBoard().getSpaces();
-            return spaces[fromSpaceRow][fromSpaceCol].getPiece().validPath(
-                    fromSpaceRow, fromSpaceCol, toSpaceRow, toSpaceCol
+            return spaces[fromSpaceRow][fromSpaceCol.getPiece().validPath(
+                    fromSpaceRow, fromSpaceColumn, toSpaceRow, toSpaceColumn
             );
         }
         else {
@@ -21,12 +23,5 @@ public class ActionMove extends Action {
     }
 
     @Override
-    public void performAction() {
-        BoardSpace[][] spaces = game.getBoard().getSpaces();
-
-        Piece piece = spaces[fromSpaceRow][fromSpaceCol].removePiece();
-        spaces[toSpaceRow][toSpaceCol].setPiece(piece);
-
-        game.changeTurn();
-    }
+    public boolean performAction;
 }
