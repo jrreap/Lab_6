@@ -19,10 +19,21 @@ public abstract class Action {
     public boolean fromSpaceVaild(){
         boolean valid = false;
         if(game.board.inBounds(fromSpaceRow, fromSpaceColumn)){
-            if(game.turn.contains()){
+            if(game.turn.contains(game.)){
                 valid = true;
             }
         }
         return valid;
     }
+
+    public validActionPath(){
+        boolean valid = false;
+        if(fromSpaceVaild()){
+            if(toSpaceValid()){
+                valid = true;
+            }
+        }
+        return valid;
+    }
+
 }
