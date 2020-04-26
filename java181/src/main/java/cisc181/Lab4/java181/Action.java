@@ -4,11 +4,11 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public abstract class Action {
-    private Game181 game;
-    private int fromSpaceRow;
-    private int fromSpaceColumn;
-    private int toSpaceRow;
-    private int toSpaceColumn;
+    protected Game181 game;
+    protected int fromSpaceRow;
+    protected int fromSpaceColumn;
+    protected int toSpaceRow;
+    protected int toSpaceColumn;
 
     public Action(Game181 game, int fromSpaceRow, int fromSpaceColumn,
                   int toSpaceRow, int toSpaceColumn) {
