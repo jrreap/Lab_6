@@ -1,6 +1,6 @@
 package cisc181.Lab4.java181;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class PlayGame {
     private Game181 game;
@@ -52,7 +52,7 @@ public class PlayGame {
         String character = "";
 
         System.out.println("M:move A:attack R:recruit");
-        character = scanner.nextLine();
+        character = scanner.next();
         returnValue = character.charAt(0);
 
         return returnValue;
@@ -78,24 +78,39 @@ public class PlayGame {
             int toRow = scanner.nextInt();
             System.out.println("Enter in the to column");
             int toCol = scanner.nextInt();
-            if (action == 'm') {
+            if (action == 'M') {
                 ActionMove moving = new ActionMove(game, fromRow, fromColumn, toRow, toCol);
                 if (moving.validAction()) {
                     moving.performAction();
                     notValidturn = false;
                 }
-            } else if (action == 'r') {
+                else {
+                    System.out.println("Not valid movement!");
+                    notValidturn = false;
+                }
+            } else if (action == 'R') {
                 ActionRecruit recruiting = new ActionRecruit(game, fromRow, fromColumn, toRow, toCol);
                 if (recruiting.validAction()) {
                     recruiting.performAction();
                     notValidturn = false;
                 }
-            } else if (action == 'a') {
+                else {
+                    System.out.println("Not valid movement!");
+                    notValidturn = false;
+                }
+            } else if (action == 'A') {
                 ActionAttack attacking = new ActionAttack(game, fromRow, fromColumn, toRow, toCol);
                 if (attacking.validAction()) {
                     attacking.performAction();
                     notValidturn = false;
                 }
+                else {
+                    System.out.println("Not valid movement!");
+                    notValidturn = false;
+                }
+            }
+            else {
+                System.out.println("That was not a valid move configuration!");
             }
         }
     }
@@ -103,7 +118,7 @@ public class PlayGame {
     public void playOurGame() {
         while(!game.isGameEnded()) {
             nextPlayersAction();
-            System.out.print(game.toString());
+            System.out.println(game.toString());
         }
 
         String output = String.format("The game has ended and team %s won!", game.getWinner());
