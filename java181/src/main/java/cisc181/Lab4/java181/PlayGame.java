@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class PlayGame {
     Game181 game;
 
-    public PlayGame (Game181 game){
+    public PlayGame(Game181 game) {
         this.game = game;
     }
 
@@ -35,11 +35,11 @@ public class PlayGame {
         return returnValue;
     }
 
-    private void nextPlayersAction(){
+    private void nextPlayersAction() {
         char action = getValidActionType();
         boolean notValidturn = true;
         Scanner scanner = new Scanner(System.in);
-        while(notValidturn) {
+        while (notValidturn) {
             System.out.println("Enter in the from row");
             int fromRow = scanner.nextInt();
             System.out.println("Enter in the from column");
@@ -54,15 +54,13 @@ public class PlayGame {
                     moving.performAction();
                     notValidturn = false;
                 }
-            }
-            else if (action == 'r') {
+            } else if (action == 'r') {
                 ActionRecruit recruiting = new ActionRecruit(game, fromRow, fromColumn, toRow, toCol);
                 if (recruiting.validAction()) {
                     recruiting.performAction();
                     notValidturn = false;
                 }
-            }
-            else if (action == 'a') {
+            } else if (action == 'a') {
                 ActionAttack attacking = new ActionAttack(game, fromRow, fromColumn, toRow, toCol);
                 if (attacking.validAction()) {
                     attacking.performAction();
@@ -71,7 +69,9 @@ public class PlayGame {
             }
         }
     }
-    public void playOurGame(){
+
+    public void playOurGame() {
         nextPlayersAction();
+
     }
 }
