@@ -1,6 +1,6 @@
 package cisc181.Lab4.java181;
 
-public class PieceSaraConnor extends Piece implements Recruiter {
+public class PieceSaraConnor extends Piece implements Recruiter, Reviver {
     boolean hidden;
 
     public PieceSaraConnor(String symbol, String color, int numAttack){
@@ -34,5 +34,10 @@ public class PieceSaraConnor extends Piece implements Recruiter {
     public void recruit(int fromRow, int FromCol, int toRow, int toCol){
         this.speak();
         System.out.println("Join the human resistance against the terminators");
+    }
+
+    public void Reviver(int fromRow, int fromCol, int toRow, int toCol){
+        this.speak();
+        System.out.println("This is not a place to die");
     }
 }
