@@ -18,9 +18,11 @@ public class ActionReviver extends Action {
     public void performAction(){
         int diedPieceLength = game.getCurrentTeam().getDiedPieces().size();
         Random rand= new Random();
+        BoardSpace revivedPieceSpace = game.getBoard().findRandomEmptySpace();
         int randomIndex = rand.nextInt(diedPieceLength);
         Piece piece = game.getCurrentTeam().getDiedPieces().get(randomIndex);
         game.getCurrentTeam().getTeamPieces().add(piece);
         game.getCurrentTeam().getDiedPieces().remove(piece);
+        revivedPieceSpace.setPiece(piece);
     }
 }

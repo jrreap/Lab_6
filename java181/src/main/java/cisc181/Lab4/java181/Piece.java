@@ -1,6 +1,7 @@
 package cisc181.Lab4.java181;
 
 public abstract class Piece {
+    protected int coolDownTimer = 0;
     // Set them to protected since we want child classes to have access to these fields.
     protected String symbol;
     protected String color;
