@@ -6,6 +6,7 @@ public class ActionReviver extends Action {
     }
 
     public boolean validAction() {
+        Team currentTeam = game.getCurrentTeam();
         return false;
     }
 
