@@ -7,11 +7,13 @@ public class Team {
     private String color;
 
     private ArrayList<Piece> pieces;
+    private ArrayList<Piece> diedPieces;
 
     public Team(String name, String color, ArrayList<Piece> pieces){
         this.name = name;
         this.color = color;
         this.pieces = pieces;
+        this.diedPieces = null;
     }
 
     public String getTeamName() {
@@ -26,8 +28,13 @@ public class Team {
         return pieces;
     }
 
+    public ArrayList<Piece> getDiedPieces() {
+        return pieces;
+    }
+
     public void removePieceFromTeam(Piece piece){
         pieces.remove(piece);
+        diedPieces.add(piece);
     }
 
     public void addPieceToTeam(Piece piece){

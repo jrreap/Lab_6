@@ -1,4 +1,5 @@
 package cisc181.Lab4.java181;
+import java.util.Random;
 
 public class ActionReviver extends Action {
     public ActionReviver(Game181 game, int fromRow, int fromCol, int toRow, int toCol){
@@ -7,8 +8,19 @@ public class ActionReviver extends Action {
 
     public boolean validAction() {
         Team currentTeam = game.getCurrentTeam();
+        int teamSize = currentTeam.getTeamPieces().size();
+        if(!(teamSize <=5)){
+            return true;
+        }
         return false;
     }
 
-    public void performAction(){}
+    public void performAction(){
+        int diedPieceLength = game.getCurrentTeam().getDiedPieces().size();
+        Random rand= new Random();
+        int randomIndex = rand.nextInt(diedPieceLength);
+        Piece piece = game.getCurrentTeam().getDiedPieces().get(randomIndex);
+        game.getCurrentTeam().getTeamPieces().add(piece);
+        game.getCurrentTeam().getDiedPieces().remove(piece);
+    }
 }
