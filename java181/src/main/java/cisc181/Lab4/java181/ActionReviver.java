@@ -8,8 +8,8 @@ public class ActionReviver extends Action {
 
     public boolean validAction() {
         Team currentTeam = game.getCurrentTeam();
-        int teamSize = currentTeam.getTeamPieces().size();
-        if(!(teamSize <=5)){
+        int teamSize = currentTeam.getDiedPieces().size();
+        if(!(teamSize <=1)){
             return true;
         }
         return false;
