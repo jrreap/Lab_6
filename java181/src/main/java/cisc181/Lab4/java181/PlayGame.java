@@ -1,9 +1,11 @@
 package cisc181.Lab4.java181;
+
 import java.util.ArrayList;
-import java.util.*;
+import java.util.Scanner;
 
 public class PlayGame {
     private Game181 game;
+    private boolean reviveAvailable = true;
 
     public PlayGame(Game181 game) {
         this.game = game;
@@ -14,24 +16,31 @@ public class PlayGame {
         Piece nemoA = new PieceSharkBait("Nemo","Red");
         Piece blueHenA = new PieceBlueHen("Hen ","Red",0,0);
         Piece penguinA = new PiecePenguin("Peng","Red",0,0);
+        Piece TerminatorA = new PieceTerminator("Terminator","Red",0);
+        Piece SaraConnorA = new PieceSaraConnor("Sara Connor", "Red", 0);
 
         // Create an array list to hold Team A's pieces
         ArrayList<Piece> piecesTeamA = new ArrayList<>();
         piecesTeamA.add(nemoA);
         piecesTeamA.add(blueHenA);
         piecesTeamA.add(penguinA);
+        piecesTeamA.add(TerminatorA);
+        piecesTeamA.add(SaraConnorA);
 
         // Create 3 pieces for Team B
         Piece nemoB = new PieceSharkBait("Nemo","Green");
         Piece blueHenB = new PieceBlueHen("Hen ","Green",0,0);
         Piece penguinB = new PiecePenguin("Peng","Green",0,0);
+        Piece TerminatorB = new PieceTerminator("Terminator", "Green",0);
+        Piece SaraConnorB = new PieceSaraConnor("SaraConnor", "Green", 0);
 
         // Create an array list to hold Team B's pieces
         ArrayList<Piece> piecesTeamB = new ArrayList<>();
         piecesTeamB.add(nemoB);
-
         piecesTeamB.add(blueHenB);
         piecesTeamB.add(penguinB);
+        piecesTeamB.add(TerminatorB);
+        piecesTeamB.add(SaraConnorB);
 
         // Create TeamA and TeamB objects and pass them the array lists of pieces
         Team teamA = new Team("A", "Red",piecesTeamA);
@@ -51,7 +60,7 @@ public class PlayGame {
         char returnValue = ' ';
         String character = "";
 
-        System.out.println("M:move A:attack R:recruit");
+        System.out.println("M:move A:attack R:recruit E:Revive");
         character = scanner.next();
         returnValue = character.charAt(0);
 
@@ -63,7 +72,7 @@ public class PlayGame {
 
         char action = ' ';
 
-        while(action != 'M' && action != 'A' && action != 'R') {
+        while(action != 'M' && action != 'A' && action != 'R'&& action != 'E') {
             action = getValidActionType(scanner);
         }
 
@@ -107,6 +116,17 @@ public class PlayGame {
                 else {
                     System.out.println("Not valid movement!");
                     notValidturn = false;
+                }
+            }
+            else if (action == 'E' && reviveAvailable){
+                ActionReviver reviving = new ActionReviver(game, fromRow,fromColumn,toRow,toCol);
+                if(reviving.validAction()){
+                    reviving.performAction();
+                    notValidturn = false;
+                    reviveAvailable = false;
+                }
+                else{
+                    System.out.println("Not valid movement");
                 }
             }
             else {
