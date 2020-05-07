@@ -13,8 +13,7 @@ public class ActionAttack extends Action {
         // check if from space valid
         if(fromSpaceValid() && (game.getPerviousPiece() != game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece()|| (game.getCurrentTeam().getTeamPieces().size() ==1))) {
             // get the piece that is in the from BoardSpace
-            Piece fromPiece = game.getBoard().getSpaces()
-                    [fromSpaceRow][fromSpaceCol].getPiece();
+            Piece fromPiece = game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece();
             // check to see if this piece has implemented the Attacker interface
             if (Attacker.class.isAssignableFrom(fromPiece.getClass())) {
                 // if to space is valid - should NOT be empty so pass false to the method

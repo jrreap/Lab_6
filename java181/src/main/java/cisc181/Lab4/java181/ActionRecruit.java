@@ -59,7 +59,7 @@ package cisc181.Lab4.java181;
             Piece piece = spaces[toSpaceRow][toSpaceCol].getPiece();
             game.setPerviousPiece(reruitPiece);
             game.changeTurn();
-
+            // this is handles if the piece is the Terminator
             if(piece instanceof PieceTerminator) {
                 ((PieceTerminator) piece).setConviction(((PieceTerminator) piece).getConviction() - 1);
                 if (((PieceTerminator) piece).getConviction() != 0) {

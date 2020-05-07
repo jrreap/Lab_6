@@ -110,6 +110,7 @@ public class PlayGame {
                     if (game.getFortress() == recruiting.game.getBoard().getSpaces()[toRow][toCol]){
                         if(this.FortressStrength >0){
                             this.FortressStrength--;
+                            System.out.println("The fortress is greatly weakened");
                         }
                         else if(FortressStrength == 0){
                             System.out.println("The Fortress falls");
@@ -131,7 +132,13 @@ public class PlayGame {
                     //new code project code that handles if the toBoardSpace is the fortress
                     if(game.getFortress() == attacking.game.getBoard().getSpaces()[toRow][toCol]){
                        if(FortressStrength >0){
-                           FortressStrength--;
+                           if(game.getBoard().getSpaces()[fromRow][fromColumn].getPiece() instanceof PieceTerminator){
+                               FortressStrength = 0;
+                           }
+                           else {
+                               FortressStrength--;
+                               System.out.println("The fortress is greatly weakened");
+                           }
                        }
                        else if(FortressStrength == 0) {
                            System.out.printf("The Fortress falls");

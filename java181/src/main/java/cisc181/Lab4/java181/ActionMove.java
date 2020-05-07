@@ -23,6 +23,10 @@ public class ActionMove extends Action {
         Piece piece = spaces[fromSpaceRow][fromSpaceCol].getPiece();
         spaces[fromSpaceRow][fromSpaceCol].removePiece();
         game.setPerviousPiece(piece);
+        game.changeTurn();
+        if(game.getBoard().getSpaces()[toSpaceRow][toSpaceCol] == game.getFortress()){
+            System.out.println("The fortress rises around " + game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece().getSymbol() + " defending against all attacks");
+        }
         // this is so that we can keep track of the terminator piece to determine if the piece exists or not
         if(piece instanceof PieceTerminator){
             if(game.getCurrentTeam() == game.team1){
@@ -41,7 +45,5 @@ public class ActionMove extends Action {
         else{
             spaces[toSpaceRow][toSpaceCol].setPiece(piece);
         }
-
-        game.changeTurn();
     }
 }

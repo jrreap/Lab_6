@@ -3,6 +3,7 @@ package cisc181.Lab4.java181;
 import java.util.Collections;
 
 public abstract class Game {
+    // since only one piece can move at a time, this is the cooldown function
     protected Piece perviousPiece;
     protected Board board;
     protected Team team1;
@@ -20,7 +21,7 @@ public abstract class Game {
 
         initializeGameBoard(rows, columns);
     }
-
+    //this handles the fortress
     public BoardSpace getFortress() {
         return Fortress;
     }
@@ -35,11 +36,13 @@ public abstract class Game {
 
     private void initializeGameBoard(int numRows, int numCols) {
         this.board = new Board(numRows, numCols);
+        //this creates a fortress from a random boardSpace
         Fortress = this.board.findRandomEmptySpace();
 
         for (Piece p : team1.getTeamPieces()){
             BoardSpace space = board.findRandomEmptySpace();
             space.setPiece(p);
+            //this handles if the piece PieceTerminator
             if(p instanceof PieceTerminator){
                 currentTerminator1 = space;
             }
@@ -48,6 +51,7 @@ public abstract class Game {
         for (Piece p : team2.getTeamPieces()){
             BoardSpace space = board.findRandomEmptySpace();
             space.setPiece(p);
+            //this handles if the piece is PieceTerminator
             if(p instanceof PieceTerminator){
                 currentTerminator2 = space;
             }
@@ -67,13 +71,6 @@ public abstract class Game {
         }
     }
 
-    public BoardSpace getCurrentTerminator1() {
-        return currentTerminator1;
-    }
-
-    public BoardSpace getCurrentTerminator2() {
-        return currentTerminator2;
-    }
 
     public Team getOpponentTeam(){
         if (!(team1.getTeamName().equals(turn))){
