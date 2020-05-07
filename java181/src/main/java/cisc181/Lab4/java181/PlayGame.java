@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class PlayGame {
     private Game181 game;
+    // new variables for the project so that there is only one revive available and set the fortress strength to two
     private boolean reviveAvailable = true;
     private int FortressStrength = 2;
 
@@ -17,6 +18,7 @@ public class PlayGame {
         Piece nemoA = new PieceSharkBait("Nemo","Red");
         Piece blueHenA = new PieceBlueHen("Hen ","Red",0,0);
         Piece penguinA = new PiecePenguin("Peng","Red",0,0);
+        // new project code that creates the Terminator and SaraConnor Pieces
         Piece TerminatorA = new PieceTerminator("Terminator","Red",0);
         Piece SaraConnorA = new PieceSaraConnor("Sara Connor", "Red", 0);
 
@@ -25,6 +27,7 @@ public class PlayGame {
         piecesTeamA.add(nemoA);
         piecesTeamA.add(blueHenA);
         piecesTeamA.add(penguinA);
+        // new project code that adds the pieces Terminator and SaraConnor to the teams
         piecesTeamA.add(TerminatorA);
         piecesTeamA.add(SaraConnorA);
 
@@ -32,6 +35,7 @@ public class PlayGame {
         Piece nemoB = new PieceSharkBait("Nemo","Green");
         Piece blueHenB = new PieceBlueHen("Hen ","Green",0,0);
         Piece penguinB = new PiecePenguin("Peng","Green",0,0);
+        // new project code that addes pieces Terminator and SaraConor to the teams
         Piece TerminatorB = new PieceTerminator("Terminator", "Green",0);
         Piece SaraConnorB = new PieceSaraConnor("SaraConnor", "Green", 0);
 
@@ -40,6 +44,7 @@ public class PlayGame {
         piecesTeamB.add(nemoB);
         piecesTeamB.add(blueHenB);
         piecesTeamB.add(penguinB);
+        //new project doe that adds pieces Terminator and SaraConnor to the team
         piecesTeamB.add(TerminatorB);
         piecesTeamB.add(SaraConnorB);
 
@@ -123,6 +128,7 @@ public class PlayGame {
             } else if (action == 'A') {
                 ActionAttack attacking = new ActionAttack(game, fromRow, fromColumn, toRow, toCol);
                 if (attacking.validAction()) {
+                    //new code project code that handles if the toBoardSpace is the fortress
                     if(game.Fortress == attacking.game.getBoard().getSpaces()[toRow][toCol]){
                        if(FortressStrength >0){
                            FortressStrength--;
@@ -144,12 +150,16 @@ public class PlayGame {
                     notValidturn = false;
                 }
             }
+            // new code that creates a new action for SaraConor Piece
             else if (action == 'E' && reviveAvailable){
                 ActionReviver reviving = new ActionReviver(game, fromRow,fromColumn,toRow,toCol);
                 if(reviving.validAction() && reviveAvailable){
                     reviving.performAction();
                     notValidturn = false;
                     reviveAvailable = false;
+                }
+                else if (!reviveAvailable){
+                    System.out.println("You are out of medical supplies");
                 }
                 else{
                     System.out.println("Not valid movement");
