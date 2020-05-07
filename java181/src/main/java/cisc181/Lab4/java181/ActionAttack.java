@@ -49,6 +49,11 @@ public class ActionAttack extends Action {
             ((PiecePenguin) attPiece)
                     .attack(fromSpaceRow,fromSpaceCol,toSpaceRow,toSpaceCol);
         }
+        else if(attPiece instanceof PieceTerminator){
+            //cast and call Terminator's attack method
+            ((PieceTerminator)attPiece)
+                    .attack(fromSpaceRow,fromSpaceCol,toSpaceRow,toSpaceCol);
+        }
     }
 
 
