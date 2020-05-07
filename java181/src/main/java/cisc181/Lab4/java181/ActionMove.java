@@ -8,7 +8,7 @@ public class ActionMove extends Action {
 
     @Override
     public boolean validAction() {
-        if(fromSpaceValid() && toSpaceValid(true) && (game.getPerviousPiece() != game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece()|| (game.getCurrentTeam().getTeamPieces().size() ==0))) {
+        if(fromSpaceValid() && toSpaceValid(true) && (game.getPerviousPiece() != game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece()|| (game.getCurrentTeam().getTeamPieces().size() ==1))) {
             BoardSpace[][] spaces = game.getBoard().getSpaces();
             return spaces[fromSpaceRow][fromSpaceCol].getPiece().validPath(fromSpaceRow, fromSpaceCol, toSpaceRow, toSpaceCol);
         }

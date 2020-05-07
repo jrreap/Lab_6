@@ -9,7 +9,7 @@ public class ActionReviver extends Action {
     public boolean validAction() {
 
         int teamSize = game.getCurrentTeam().getDiedPieces().size()-1;
-        if((teamSize >=1) && ((game.getPerviousPiece() != game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece()) || (game.getCurrentTeam().getTeamPieces().size() ==0)) ){
+        if((teamSize >=1) && ((game.getPerviousPiece() != game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece()) || (game.getCurrentTeam().getTeamPieces().size() ==1)) ){
             return true;
         }
         return false;
