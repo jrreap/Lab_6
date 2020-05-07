@@ -8,7 +8,7 @@ public class ActionMove extends Action {
 
     @Override
     public boolean validAction() {
-        if(fromSpaceValid() && toSpaceValid(true)) {
+        if(fromSpaceValid() && toSpaceValid(true) && (game.getPerviousPiece() != game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece())) {
             BoardSpace[][] spaces = game.getBoard().getSpaces();
             return spaces[fromSpaceRow][fromSpaceCol].getPiece().validPath(fromSpaceRow, fromSpaceCol, toSpaceRow, toSpaceCol);
         }
@@ -20,23 +20,26 @@ public class ActionMove extends Action {
     @Override
     public void performAction() {
         BoardSpace[][] spaces = game.getBoard().getSpaces();
-
-        Piece piece = spaces[fromSpaceRow][fromSpaceCol].removePiece();
-        spaces[toSpaceRow][toSpaceCol].setPiece(piece);
+        Piece piece = spaces[fromSpaceRow][fromSpaceCol].getPiece();
+        spaces[fromSpaceRow][fromSpaceCol].removePiece();
+        game.setPerviousPiece(piece);
         // this is so that we can keep track of the terminator piece to determine if the piece exists or not
-        if((piece == game.currentTerminator1.getPiece()) || (piece == game.currentTerminator2.getPiece())){
+        if(piece instanceof PieceTerminator){
             if(game.getCurrentTeam() == game.team1){
                 //this sets the currentTerminator1 boardspace to the new terminator boardspace to keep track of it
                 game.currentTerminator1 = spaces[toSpaceRow][toSpaceCol];
+                spaces[toSpaceRow][toSpaceCol].setPiece(piece);
                 //this sets the piece to the cooldown piece
-                game.setPerviousPiece(game.currentTerminator1.getPiece());
             }
             else{
                 //this keeps track of the piece to make sure it exists
                 game.currentTerminator2 = spaces[toSpaceRow][toSpaceCol];
+                spaces[toSpaceRow][toSpaceCol].setPiece(piece);
                 // this sets the piece to the cooldown piece
-                game.setPerviousPiece(game.currentTerminator2.getPiece());
             }
+        }
+        else{
+            spaces[toSpaceRow][toSpaceCol].setPiece(piece);
         }
 
         game.changeTurn();

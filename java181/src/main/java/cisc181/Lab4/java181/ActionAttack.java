@@ -11,7 +11,7 @@ public class ActionAttack extends Action {
     public boolean validAction() {
 
         // check if from space valid
-        if(fromSpaceValid() ) {
+        if(fromSpaceValid() && (game.getPerviousPiece() != game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece()) ) {
             // get the piece that is in the from BoardSpace
             Piece fromPiece = game.getBoard().getSpaces()
                     [fromSpaceRow][fromSpaceCol].getPiece();

@@ -29,6 +29,10 @@ public abstract class Game {
         this.perviousPiece = perviousPiece;
     }
 
+    public Piece getPerviousPiece() {
+        return perviousPiece;
+    }
+
     private void initializeGameBoard(int numRows, int numCols) {
         this.board = new Board(numRows, numCols);
         Fortress = this.board.findRandomEmptySpace();
