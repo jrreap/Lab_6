@@ -38,8 +38,8 @@ public class Game181 extends Game {
 
     @Override
     public boolean isGameEnded() {
-        Piece terminator1 = team1.getTeamPieces().get("not sure");
-        Piece terminator2 = team2.getTeamPieces().get("not sure");
+        Piece terminator1 = currentTerminator1.getPiece();
+        Piece terminator2 = currentTerminator2.getPiece();
         if((!team1.getTeamPieces().contains(terminator1))||(team2.getTeamPieces().contains(terminator2))){
                 return true;
         }

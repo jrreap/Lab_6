@@ -24,6 +24,15 @@ public class ActionMove extends Action {
         Piece piece = spaces[fromSpaceRow][fromSpaceCol].removePiece();
         spaces[toSpaceRow][toSpaceCol].setPiece(piece);
 
+        if(piece.getSymbol() == "Terminator"){
+            if(game.getCurrentTeam() == game.team1){
+                game.currentTerminator1 = spaces[toSpaceRow][toSpaceCol];
+            }
+            else{
+                game.currentTerminator2 = spaces[toSpaceRow][toSpaceCol];
+            }
+        }
+
         game.changeTurn();
     }
 }

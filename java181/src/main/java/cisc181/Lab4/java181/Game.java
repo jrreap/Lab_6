@@ -7,6 +7,8 @@ public abstract class Game {
     protected Team team1;
     protected Team team2;
     protected String turn;
+    protected BoardSpace currentTerminator1;
+    protected BoardSpace currentTerminator2;
 
     public Game(int rows, int columns, Team team1, Team team2){
         this.team1 = team1;
@@ -22,11 +24,17 @@ public abstract class Game {
         for (Piece p : team1.getTeamPieces()){
             BoardSpace space = board.findRandomEmptySpace();
             space.setPiece(p);
+            if(p.getSymbol() == "Terminator"){
+                currentTerminator1 = space;
+            }
         }
 
         for (Piece p : team2.getTeamPieces()){
             BoardSpace space = board.findRandomEmptySpace();
             space.setPiece(p);
+            if(p.getSymbol() == "Terminator"){
+                currentTerminator2 = space;
+            }
         }
     }
 
