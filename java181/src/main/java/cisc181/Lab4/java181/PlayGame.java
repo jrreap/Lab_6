@@ -98,9 +98,21 @@ public class PlayGame {
                     System.out.println("Not valid movement!");
                     notValidturn = false;
                 }
-            } else if (action == 'R') {
+            }
+            else if (action == 'R') {
                 ActionRecruit recruiting = new ActionRecruit(game, fromRow, fromColumn, toRow, toCol);
                 if (recruiting.validAction()) {
+                    if (game.getFortress() == recruiting.game.getBoard().getSpaces()[toRow][toCol]){
+                        if(this.FortressStrength >0){
+                            this.FortressStrength--;
+                        }
+                        else if(FortressStrength == 0){
+                            System.out.println("The Fortress falls");
+                            }
+                        else{
+                            recruiting.performAction();
+                        }
+                    }
                     recruiting.performAction();
                     notValidturn = false;
                 }
@@ -114,6 +126,9 @@ public class PlayGame {
                     if(game.Fortress == attacking.game.getBoard().getSpaces()[toRow][toCol]){
                        if(FortressStrength >0){
                            FortressStrength--;
+                       }
+                       else if(FortressStrength == 0) {
+                           System.out.printf("The Fortress falls");
                        }
                        else{
                            attacking.performAction();

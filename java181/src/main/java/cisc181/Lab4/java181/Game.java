@@ -19,6 +19,10 @@ public abstract class Game {
         initializeGameBoard(rows, columns);
     }
 
+    public BoardSpace getFortress() {
+        return Fortress;
+    }
+
     private void initializeGameBoard(int numRows, int numCols) {
         this.board = new Board(numRows, numCols);
         Fortress = this.board.findRandomEmptySpace();
