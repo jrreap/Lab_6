@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class PlayGame {
     private Game181 game;
     private boolean reviveAvailable = true;
-    final protected int FORTRESS_HEALTH = 2;
+    private int FortressStrength = 2;
 
     public PlayGame(Game181 game) {
         this.game = game;
@@ -111,7 +111,17 @@ public class PlayGame {
             } else if (action == 'A') {
                 ActionAttack attacking = new ActionAttack(game, fromRow, fromColumn, toRow, toCol);
                 if (attacking.validAction()) {
-                    attacking.performAction();
+                    if(game.Fortress == attacking.game.getBoard().getSpaces()[toRow][toCol]){
+                       if(FortressStrength >0){
+                           FortressStrength--;
+                       }
+                       else{
+                           attacking.performAction();
+                       }
+                    }
+                    else {
+                        attacking.performAction();
+                    }
                     notValidturn = false;
                 }
                 else {
@@ -121,7 +131,7 @@ public class PlayGame {
             }
             else if (action == 'E' && reviveAvailable){
                 ActionReviver reviving = new ActionReviver(game, fromRow,fromColumn,toRow,toCol);
-                if(reviving.validAction()){
+                if(reviving.validAction() && reviveAvailable){
                     reviving.performAction();
                     notValidturn = false;
                     reviveAvailable = false;
