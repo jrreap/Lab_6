@@ -3,6 +3,7 @@ package cisc181.Lab4.java181;
 import java.util.Collections;
 
 public abstract class Game {
+    protected Piece perviousPiece;
     protected Board board;
     protected Team team1;
     protected Team team2;
@@ -15,12 +16,17 @@ public abstract class Game {
         this.team1 = team1;
         this.team2 = team2;
         this.turn = team1.getTeamName();
+        this.perviousPiece = null;
 
         initializeGameBoard(rows, columns);
     }
 
     public BoardSpace getFortress() {
         return Fortress;
+    }
+
+    public void setPerviousPiece(Piece perviousPiece) {
+        this.perviousPiece = perviousPiece;
     }
 
     private void initializeGameBoard(int numRows, int numCols) {
@@ -55,6 +61,14 @@ public abstract class Game {
         else {
             return team2;
         }
+    }
+
+    public BoardSpace getCurrentTerminator1() {
+        return currentTerminator1;
+    }
+
+    public BoardSpace getCurrentTerminator2() {
+        return currentTerminator2;
     }
 
     public Team getOpponentTeam(){

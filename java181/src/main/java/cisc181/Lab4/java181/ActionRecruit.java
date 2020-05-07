@@ -54,9 +54,25 @@ package cisc181.Lab4.java181;
         public void performAction() {
             recruit();
             BoardSpace[][] spaces = game.getBoard().getSpaces();
+            //this changes the piece that is held in the previous piece slot to change the cooldowns
+            Piece reruitPiece = spaces[fromSpaceRow][fromSpaceCol].getPiece();
             Piece piece = spaces[toSpaceRow][toSpaceCol].getPiece();
-            game.getOpponentTeam().getTeamPieces().remove(piece);
-            game.getCurrentTeam().getTeamPieces().add(piece);
+            game.setPerviousPiece(reruitPiece);
             game.changeTurn();
+
+            if(piece instanceof PieceTerminator) {
+                ((PieceTerminator) piece).setConviction(((PieceTerminator) piece).getConviction() - 1);
+                if (((PieceTerminator) piece).getConviction() != 0) {
+                    game.setPerviousPiece(reruitPiece);
+                } else {
+                    game.getOpponentTeam().getTeamPieces().remove(piece);
+                    game.getCurrentTeam().getTeamPieces().add(piece);
+                }
+            }
+            else{
+                game.getOpponentTeam().getTeamPieces().remove(piece);
+                game.getCurrentTeam().getTeamPieces().add(piece);
+            }
+
         }
     }

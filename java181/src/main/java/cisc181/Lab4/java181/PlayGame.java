@@ -129,7 +129,7 @@ public class PlayGame {
                 ActionAttack attacking = new ActionAttack(game, fromRow, fromColumn, toRow, toCol);
                 if (attacking.validAction()) {
                     //new code project code that handles if the toBoardSpace is the fortress
-                    if(game.Fortress == attacking.game.getBoard().getSpaces()[toRow][toCol]){
+                    if(game.getFortress() == attacking.game.getBoard().getSpaces()[toRow][toCol]){
                        if(FortressStrength >0){
                            FortressStrength--;
                        }

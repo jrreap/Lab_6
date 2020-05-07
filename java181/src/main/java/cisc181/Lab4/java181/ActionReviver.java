@@ -24,5 +24,6 @@ public class ActionReviver extends Action {
         game.getCurrentTeam().getTeamPieces().add(piece);
         game.getCurrentTeam().getDiedPieces().remove(piece);
         revivedPieceSpace.setPiece(piece);
+        game.setPerviousPiece(game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece());
     }
 }

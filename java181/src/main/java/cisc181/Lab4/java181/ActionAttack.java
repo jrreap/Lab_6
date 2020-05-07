@@ -61,18 +61,30 @@ public class ActionAttack extends Action {
         attack();
 
         BoardSpace[][] spaces = game.getBoard().getSpaces();
-
         Piece piece = spaces[toSpaceRow][toSpaceCol].getPiece();
-        spaces[toSpaceRow][toSpaceCol].removePiece();
-
-        game.getOpponentTeam().getTeamPieces().remove(piece);
-
         Piece attackerPiece = spaces[fromSpaceRow][fromSpaceCol].getPiece();
-        spaces[fromSpaceRow][fromSpaceCol].removePiece();
-
-        spaces[toSpaceRow][toSpaceCol].setPiece(attackerPiece);
-
+        game.setPerviousPiece(attackerPiece);
         game.changeTurn();
+
+        if(piece instanceof PieceTerminator){
+            ((PieceTerminator)piece).setHealth(((PieceTerminator)piece).getHealth()-1);
+            if(((PieceTerminator) piece).getHealth() != 0){
+            }
+            else{
+                spaces[fromSpaceRow][fromSpaceCol].removePiece();
+                spaces[toSpaceRow][toSpaceCol].removePiece();
+                game.getOpponentTeam().getTeamPieces().remove(piece);
+                spaces[toSpaceRow][toSpaceCol].setPiece(attackerPiece);
+                //this changes the piece that is in cooldown for one turn
+            }
+        }
+        else {
+            spaces[fromSpaceRow][fromSpaceCol].removePiece();
+            spaces[toSpaceRow][toSpaceCol].removePiece();
+            game.getOpponentTeam().getTeamPieces().remove(piece);
+            spaces[toSpaceRow][toSpaceCol].setPiece(attackerPiece);
+            //this changes the piece that is in cooldown for one turn
+        }
     }
 
 
