@@ -40,7 +40,7 @@ public abstract class Game {
         for (Piece p : team1.getTeamPieces()){
             BoardSpace space = board.findRandomEmptySpace();
             space.setPiece(p);
-            if(p.getSymbol() == "Terminator"){
+            if(p instanceof PieceTerminator){
                 currentTerminator1 = space;
             }
         }
@@ -48,7 +48,7 @@ public abstract class Game {
         for (Piece p : team2.getTeamPieces()){
             BoardSpace space = board.findRandomEmptySpace();
             space.setPiece(p);
-            if(p.getSymbol() == "Terminator"){
+            if(p instanceof PieceTerminator){
                 currentTerminator2 = space;
             }
         }
