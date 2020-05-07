@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class PlayGame {
     private Game181 game;
     private boolean reviveAvailable = true;
+    final protected int FORTRESS_HEALTH = 2;
 
     public PlayGame(Game181 game) {
         this.game = game;

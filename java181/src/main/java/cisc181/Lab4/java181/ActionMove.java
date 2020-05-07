@@ -24,7 +24,7 @@ public class ActionMove extends Action {
         Piece piece = spaces[fromSpaceRow][fromSpaceCol].removePiece();
         spaces[toSpaceRow][toSpaceCol].setPiece(piece);
 
-        if(piece.getSymbol() == "Terminator"){
+        if((piece == game.currentTerminator1.getPiece()) || (piece == game.currentTerminator2.getPiece())){
             if(game.getCurrentTeam() == game.team1){
                 game.currentTerminator1 = spaces[toSpaceRow][toSpaceCol];
             }

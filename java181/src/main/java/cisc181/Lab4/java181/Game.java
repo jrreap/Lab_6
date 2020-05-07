@@ -9,6 +9,7 @@ public abstract class Game {
     protected String turn;
     protected BoardSpace currentTerminator1;
     protected BoardSpace currentTerminator2;
+    protected BoardSpace Fortress;
 
     public Game(int rows, int columns, Team team1, Team team2){
         this.team1 = team1;
@@ -20,6 +21,7 @@ public abstract class Game {
 
     private void initializeGameBoard(int numRows, int numCols) {
         this.board = new Board(numRows, numCols);
+        Fortress = this.board.findRandomEmptySpace();
 
         for (Piece p : team1.getTeamPieces()){
             BoardSpace space = board.findRandomEmptySpace();

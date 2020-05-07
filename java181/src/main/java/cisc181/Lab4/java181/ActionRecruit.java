@@ -45,6 +45,10 @@ package cisc181.Lab4.java181;
                 // cast and call Penguin's recruit method
                 ((PiecePenguin) recPiece).recruit(fromSpaceRow,fromSpaceCol,toSpaceRow,toSpaceCol);
             }
+            else if(recPiece instanceof PieceSaraConnor){
+                // cast and call SaraConnor method
+                ((PieceSaraConnor) recPiece).recruit(fromSpaceRow,fromSpaceCol,toSpaceRow,toSpaceCol);
+            }
         }
 
         public void performAction() {
