@@ -4,13 +4,13 @@ import java.util.Collections;
 
 public abstract class Game {
     // since only one piece can move at a time, this is the cool down function
-    protected Piece previousPiece;
     protected Board board;
     protected Team team1;
     protected Team team2;
     protected String turn;
     protected BoardSpace currentTerminator1;
     protected BoardSpace currentTerminator2;
+    protected Piece previousPiece;
     protected BoardSpace Fortress;
 
     public Game(int rows, int columns, Team team1, Team team2){
@@ -72,7 +72,7 @@ public abstract class Game {
     public Team getOpponentTeam(){
         if (!(team1.getTeamName().equals(turn))){
             return team1;
-        } else { return team2; }
+        } else{return team2;}
     }
 
     public boolean isTurn(Team team){
@@ -83,21 +83,15 @@ public abstract class Game {
         if (team1.getTeamName().equals(turn)){
             turn = team2.getTeamName();
         }
-        else {
-            turn = team1.getTeamName();
-        }
+        else {turn = team1.getTeamName();}
     }
 
     // Abstract methods
-
     public abstract boolean isAWinner();
-
     public abstract Team getWinner();
-
     public abstract boolean isGameEnded();
 
     // Overrides
-
     public String toString(){
         StringBuilder retString = new StringBuilder();
         retString.append("Game Board:\n")

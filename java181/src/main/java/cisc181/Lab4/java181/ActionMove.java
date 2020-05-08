@@ -32,14 +32,14 @@ public class ActionMove extends Action {
             if(game.isTurn(game.team1)){
                 //this sets the currentTerminator1 board space to the new terminator board space to keep track of it
                 game.currentTerminator1 = spaces[toSpaceRow][toSpaceCol];
-                spaces[toSpaceRow][toSpaceCol].setPiece(piece);
                 //this sets the piece to the cool down piece
+                spaces[toSpaceRow][toSpaceCol].setPiece(piece);
             }
             else{
                 //this keeps track of the piece to make sure it exists
                 game.currentTerminator2 = spaces[toSpaceRow][toSpaceCol];
-                spaces[toSpaceRow][toSpaceCol].setPiece(piece);
                 // this sets the piece to the cool down piece
+                spaces[toSpaceRow][toSpaceCol].setPiece(piece);
             }
         }
         else{
