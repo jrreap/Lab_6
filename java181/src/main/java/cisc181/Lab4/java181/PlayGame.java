@@ -35,7 +35,7 @@ public class PlayGame {
         Piece nemoB = new PieceSharkBait("Nemo","Green");
         Piece blueHenB = new PieceBlueHen("Hen ","Green",0,0);
         Piece penguinB = new PiecePenguin("Peng","Green",0,0);
-        // new project code that addes pieces Terminator and SaraConor to the teams
+        // new project code that adds pieces Terminator and SaraConor to the teams
         Piece TerminatorB = new PieceTerminator("Terminator", "Green",0);
         Piece SaraConnorB = new PieceSaraConnor("SaraConnor", "Green", 0);
 

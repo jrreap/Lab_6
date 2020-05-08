@@ -3,8 +3,8 @@ package cisc181.Lab4.java181;
 import java.util.Collections;
 
 public abstract class Game {
-    // since only one piece can move at a time, this is the cooldown function
-    protected Piece perviousPiece;
+    // since only one piece can move at a time, this is the cool down function
+    protected Piece previousPiece;
     protected Board board;
     protected Team team1;
     protected Team team2;
@@ -17,7 +17,7 @@ public abstract class Game {
         this.team1 = team1;
         this.team2 = team2;
         this.turn = team1.getTeamName();
-        this.perviousPiece = null;
+        this.previousPiece = null;
 
         initializeGameBoard(rows, columns);
     }
@@ -26,12 +26,12 @@ public abstract class Game {
         return Fortress;
     }
 
-    public void setPerviousPiece(Piece perviousPiece) {
-        this.perviousPiece = perviousPiece;
+    public void setPreviousPiece(Piece previousPiece) {
+        this.previousPiece = previousPiece;
     }
 
-    public Piece getPerviousPiece() {
-        return perviousPiece;
+    public Piece getPreviousPiece() {
+        return previousPiece;
     }
 
     private void initializeGameBoard(int numRows, int numCols) {
@@ -65,20 +65,14 @@ public abstract class Game {
     public Team getCurrentTeam(){
         if (team1.getTeamName().equals(turn)){
             return team1;
-        }
-        else {
-            return team2;
-        }
+        } else { return team2; }
     }
 
 
     public Team getOpponentTeam(){
         if (!(team1.getTeamName().equals(turn))){
             return team1;
-        }
-        else {
-            return team2;
-        }
+        } else { return team2; }
     }
 
     public boolean isTurn(Team team){

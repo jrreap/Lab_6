@@ -11,7 +11,7 @@ public class ActionAttack extends Action {
     public boolean validAction() {
 
         // check if from space valid
-        if(fromSpaceValid() && (game.getPerviousPiece() != game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece()|| (game.getCurrentTeam().getTeamPieces().size() ==1))) {
+        if(fromSpaceValid() && (game.getPreviousPiece() != game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece()|| (game.getCurrentTeam().getTeamPieces().size() ==1))) {
             // get the piece that is in the from BoardSpace
             Piece fromPiece = game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece();
             // check to see if this piece has implemented the Attacker interface
@@ -62,14 +62,12 @@ public class ActionAttack extends Action {
         BoardSpace[][] spaces = game.getBoard().getSpaces();
         Piece piece = spaces[toSpaceRow][toSpaceCol].getPiece();
         Piece attackerPiece = spaces[fromSpaceRow][fromSpaceCol].getPiece();
-        game.setPerviousPiece(attackerPiece);
+        game.setPreviousPiece(attackerPiece);
         game.changeTurn();
 
         if(piece instanceof PieceTerminator){
             ((PieceTerminator)piece).setHealth(((PieceTerminator)piece).getHealth()-1);
-            if(((PieceTerminator) piece).getHealth() != 0){
-            }
-            else{
+            if(((PieceTerminator) piece).getHealth() == 0){
                 spaces[fromSpaceRow][fromSpaceCol].removePiece();
                 spaces[toSpaceRow][toSpaceCol].removePiece();
                 game.getOpponentTeam().getTeamPieces().remove(piece);

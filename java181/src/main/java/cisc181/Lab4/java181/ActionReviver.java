@@ -7,12 +7,11 @@ public class ActionReviver extends Action {
     }
 
     public boolean validAction() {
-
         int teamSize = game.getCurrentTeam().getDiedPieces().size()-1;
-        if((teamSize >=1) && ((game.getPerviousPiece() != game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece()) || (game.getCurrentTeam().getTeamPieces().size() ==1)) ){
+        if((teamSize >=1) && ((game.getPreviousPiece() != game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece()) || (game.getCurrentTeam().getTeamPieces().size() ==1)) ){
             return true;
         }
-        return false;
+        else{return false;}
     }
 
     public void performAction(){
@@ -24,6 +23,6 @@ public class ActionReviver extends Action {
         game.getCurrentTeam().getTeamPieces().add(piece);
         game.getCurrentTeam().getDiedPieces().remove(piece);
         revivedPieceSpace.setPiece(piece);
-        game.setPerviousPiece(game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece());
+        game.setPreviousPiece(game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece());
     }
 }
