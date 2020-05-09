@@ -107,18 +107,6 @@ public class PlayGame {
             else if (action == 'R') {
                 ActionRecruit recruiting = new ActionRecruit(game, fromRow, fromColumn, toRow, toCol);
                 if (recruiting.validAction()) {
-                    if (game.getFortress() == recruiting.game.getBoard().getSpaces()[toRow][toCol]){
-                        if(this.FortressStrength >0){
-                            this.FortressStrength--;
-                            System.out.println("The fortress is greatly weakened");
-                        }
-                        else if(FortressStrength == 0){
-                            System.out.println("The Fortress falls");
-                            }
-                        else{
-                            recruiting.performAction();
-                        }
-                    }
                     recruiting.performAction();
                     notValidturn = false;
                 }
@@ -130,27 +118,7 @@ public class PlayGame {
                 ActionAttack attacking = new ActionAttack(game, fromRow, fromColumn, toRow, toCol);
                 if (attacking.validAction()) {
                     //new code project code that handles if the toBoardSpace is the fortress
-                    if(game.getFortress() == attacking.game.getBoard().getSpaces()[toRow][toCol]){
-                       if(FortressStrength >0){
-                           if(game.getBoard().getSpaces()[fromRow][fromColumn].getPiece() instanceof PieceTerminator){
-                               FortressStrength = 0;
-                           }
-                           else {
-                               FortressStrength--;
-                               System.out.println("The fortress is greatly weakened");
-                           }
-                       }
-                       else if(FortressStrength == 0) {
-                           System.out.printf("The Fortress falls");
-                       }
-                       else{
-                           attacking.performAction();
-                       }
-                    }
-                    else {
-                        attacking.performAction();
-                    }
-                    notValidturn = false;
+                    attacking.performAction();
                 }
                 else {
                     System.out.println("Not valid movement!");

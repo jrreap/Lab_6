@@ -60,7 +60,27 @@ package cisc181.Lab4.java181;
             game.setPreviousPiece(reruitPiece);
             game.changeTurn();
             // this is handles if the piece is the Terminator
-            if(piece instanceof PieceTerminator) {
+            if(spaces[toSpaceRow][toSpaceCol] == game.getFortress().getFortress()){
+                if(reruitPiece instanceof PieceTerminator){
+                    if(game.getFortress().getFortressHealth() >=2) {
+                        if (game.getFortress().getFortressHealth() == 2) {
+                            System.out.println("The fortress falls");
+                            game.getFortress().attackFortressTerminator();
+                        } else {
+                            game.getFortress().attackFortressTerminator();
+                            System.out.println("The fortress is weakened, " + game.getFortress().getFortressHealth() + " will cause it to fall");
+                        }
+                    }
+                    else if (game.getFortress().getFortressHealth() == 1){
+                        System.out.println("Fortress fails to protect" + piece.getSymbol() + "and is siding with the Terminator");
+                        game.getFortress().attackFortress();
+                        game.getOpponentTeam().getTeamPieces().remove(piece);
+                        game.getCurrentTeam().getTeamPieces().add(piece);
+                    }
+                }
+                else{game.getFortress().attackFortress();}
+            }
+            else if(piece instanceof PieceTerminator && spaces[toSpaceRow][toSpaceCol] != game.getFortress().getFortress()) {
                 ((PieceTerminator) piece).setConviction(((PieceTerminator) piece).getConviction() - 1);
                 if (((PieceTerminator) piece).getConviction() == 0) {
                     game.getOpponentTeam().getTeamPieces().remove(piece);
