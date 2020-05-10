@@ -19,8 +19,8 @@ public class PlayGame {
         Piece blueHenA = new PieceBlueHen("Hen ","Red",0,0);
         Piece penguinA = new PiecePenguin("Peng","Red",0,0);
         // new project code that creates the Terminator and SaraConnor Pieces
-        Piece TerminatorA = new PieceTerminator("Terminator","Red",0);
-        Piece SaraConnorA = new PieceSaraConnor("Sara Connor", "Red", 0);
+        Piece TerminatorA = new PieceTerminator("Term","Red",0);
+        Piece SaraConnorA = new PieceSaraConnor("Sara", "Red", 0);
 
         // Create an array list to hold Team A's pieces
         ArrayList<Piece> piecesTeamA = new ArrayList<>();
@@ -36,8 +36,8 @@ public class PlayGame {
         Piece blueHenB = new PieceBlueHen("Hen ","Green",0,0);
         Piece penguinB = new PiecePenguin("Peng","Green",0,0);
         // new project code that adds pieces Terminator and SaraConor to the teams
-        Piece TerminatorB = new PieceTerminator("Terminator", "Green",0);
-        Piece SaraConnorB = new PieceSaraConnor("SaraConnor", "Green", 0);
+        Piece TerminatorB = new PieceTerminator("Term", "Green",0);
+        Piece SaraConnorB = new PieceSaraConnor("Sara", "Green", 0);
 
         // Create an array list to hold Team B's pieces
         ArrayList<Piece> piecesTeamB = new ArrayList<>();
@@ -56,7 +56,7 @@ public class PlayGame {
         Game181 ourGame = new Game181(4, 4,teamA, teamB);
 
         // Print Board at start of game
-        System.out.println(ourGame.getBoard().toString());
+        System.out.println(ourGame.toString());
         // Create PlayGame object and play the game
         PlayGame play = new PlayGame(ourGame);
         play.playOurGame();
@@ -85,15 +85,21 @@ public class PlayGame {
         boolean notValidturn = true;
 
         while (notValidturn) {
-            System.out.println("Enter in the from row");
-            int fromRow = scanner.nextInt();
-            System.out.println("Enter in the from column");
-            int fromColumn = scanner.nextInt();
-            System.out.println("Enter in the to row");
-            int toRow = scanner.nextInt();
-            System.out.println("Enter in the to column");
-            int toCol = scanner.nextInt();
+            int fromRow;
+            int fromColumn;
+            int toRow;
+            int toCol;
             if (action == 'M') {
+
+                System.out.println("Enter in the from row");
+                fromRow = scanner.nextInt();
+                System.out.println("Enter in the from column");
+                fromColumn = scanner.nextInt();
+                System.out.println("Enter in the to row");
+                toRow = scanner.nextInt();
+                System.out.println("Enter in the to column");
+                toCol = scanner.nextInt();
+
                 ActionMove moving = new ActionMove(game, fromRow, fromColumn, toRow, toCol);
                 if (moving.validAction()) {
                     moving.performAction();
@@ -105,6 +111,16 @@ public class PlayGame {
                 }
             }
             else if (action == 'R') {
+
+                System.out.println("Enter in the from row");
+                fromRow = scanner.nextInt();
+                System.out.println("Enter in the from column");
+                fromColumn = scanner.nextInt();
+                System.out.println("Enter in the to row");
+                toRow = scanner.nextInt();
+                System.out.println("Enter in the to column");
+                toCol = scanner.nextInt();
+
                 ActionRecruit recruiting = new ActionRecruit(game, fromRow, fromColumn, toRow, toCol);
                 if (recruiting.validAction()) {
                     recruiting.performAction();
@@ -115,10 +131,21 @@ public class PlayGame {
                     notValidturn = false;
                 }
             } else if (action == 'A') {
+
+                System.out.println("Enter in the from row");
+                fromRow = scanner.nextInt();
+                System.out.println("Enter in the from column");
+                fromColumn = scanner.nextInt();
+                System.out.println("Enter in the to row");
+                toRow = scanner.nextInt();
+                System.out.println("Enter in the to column");
+                toCol = scanner.nextInt();
+
                 ActionAttack attacking = new ActionAttack(game, fromRow, fromColumn, toRow, toCol);
                 if (attacking.validAction()) {
                     //new code project code that handles if the toBoardSpace is the fortress
                     attacking.performAction();
+                    notValidturn = false;
                 }
                 else {
                     System.out.println("Not valid movement!");
@@ -127,7 +154,13 @@ public class PlayGame {
             }
             // new code that creates a new action for SaraConor Piece
             else if (action == 'E' && reviveAvailable){
-                ActionReviver reviving = new ActionReviver(game, fromRow,fromColumn,toRow,toCol);
+
+                System.out.println("Enter in the from row");
+                fromRow = scanner.nextInt();
+                System.out.println("Enter in the from column");
+                fromColumn = scanner.nextInt();
+
+                ActionReviver reviving = new ActionReviver(game, fromRow, fromColumn,0, 0);
                 if(reviving.validAction() && reviveAvailable){
                     reviving.performAction();
                     notValidturn = false;
@@ -135,9 +168,11 @@ public class PlayGame {
                 }
                 else if (!reviveAvailable){
                     System.out.println("You are out of medical supplies");
+                    notValidturn = false;
                 }
                 else{
                     System.out.println("Not valid movement");
+                    notValidturn = false;
                 }
             }
             else {

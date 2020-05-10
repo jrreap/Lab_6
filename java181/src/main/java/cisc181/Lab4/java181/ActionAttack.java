@@ -11,7 +11,7 @@ public class ActionAttack extends Action {
     public boolean validAction() {
 
         // check if from space valid
-        if(fromSpaceValid() && (game.getPreviousPiece() != game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece()|| (game.getCurrentTeam().getTeamPieces().size() ==1))) {
+        if(fromSpaceValid() && (game.getCurrentTeam().getPreviousPiece() != game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece()|| (game.getCurrentTeam().getTeamPieces().size() ==1))) {
             // get the piece that is in the from BoardSpace
             Piece fromPiece = game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece();
             // check to see if this piece has implemented the Attacker interface
@@ -61,8 +61,7 @@ public class ActionAttack extends Action {
         BoardSpace[][] spaces = game.getBoard().getSpaces();
         Piece piece = spaces[toSpaceRow][toSpaceCol].getPiece();
         Piece attackerPiece = spaces[fromSpaceRow][fromSpaceCol].getPiece();
-        game.setPreviousPiece(attackerPiece);
-        game.changeTurn();
+        game.getCurrentTeam().setPreviousPiece(attackerPiece);
         if (spaces[toSpaceRow][toSpaceCol] == game.getFortress().getFortress()) {
             if (attackerPiece instanceof PieceTerminator) {
                 if(game.getFortress().getFortressHealth() == 1) {
@@ -84,22 +83,34 @@ public class ActionAttack extends Action {
         else if (piece instanceof PieceTerminator && (spaces[toSpaceRow][toSpaceCol] != game.getFortress().getFortress())) {
             ((PieceTerminator) piece).setHealth(((PieceTerminator) piece).getHealth() - 1);
             if (((PieceTerminator) piece).getHealth() >= 1) {
-                System.out.println("The Terminator is Weaken, " + ((PieceTerminator) piece).getHealth() + " more attack will kill him");
+                System.out.println("The Terminator is Weakened, " + ((PieceTerminator) piece).getHealth() + " more attack will kill him");
             }
-            else if (((PieceTerminator) piece).getHealth() == 0) {
+            else {
                 spaces[fromSpaceRow][fromSpaceCol].removePiece();
                 spaces[toSpaceRow][toSpaceCol].removePiece();
                 game.getOpponentTeam().getTeamPieces().remove(piece);
                 spaces[toSpaceRow][toSpaceCol].setPiece(attackerPiece);
-                }
+            }
+        }
         else {
             spaces[fromSpaceRow][fromSpaceCol].removePiece();
             spaces[toSpaceRow][toSpaceCol].removePiece();
             game.getOpponentTeam().getTeamPieces().remove(piece);
             spaces[toSpaceRow][toSpaceCol].setPiece(attackerPiece);
-            //this changes the piece that is in cooldown for one turn
+
+            if (attackerPiece instanceof PieceTerminator) {
+                if(game.getCurrentTeam().equals(game.team1)){
+                    game.setCurrentTerminator1(spaces[toSpaceRow][toSpaceCol]);
+                }
+                else {
+                    game.setCurrentTerminator2(spaces[toSpaceRow][toSpaceCol]);
+                }
             }
+
+            //this changes the piece that is in cooldown for one turn
         }
+
+        game.changeTurn();
     }
 
 

@@ -10,14 +10,13 @@ public abstract class Game {
     protected String turn;
     protected BoardSpace currentTerminator1;
     protected BoardSpace currentTerminator2;
-    protected Piece previousPiece;
     protected FortressBoardSpace Fortress;
 
     public Game(int rows, int columns, Team team1, Team team2){
         this.team1 = team1;
         this.team2 = team2;
         this.turn = team1.getTeamName();
-        this.previousPiece = null;
+        this.Fortress = new FortressBoardSpace();
 
         initializeGameBoard(rows, columns);
     }
@@ -30,18 +29,26 @@ public abstract class Game {
         Fortress = fortress;
     }
 
-    public void setPreviousPiece(Piece previousPiece) {
-        this.previousPiece = previousPiece;
+    public BoardSpace getCurrentTerminator1() {
+        return currentTerminator1;
     }
 
-    public Piece getPreviousPiece() {
-        return previousPiece;
+    public BoardSpace getCurrentTerminator2() {
+        return currentTerminator2;
+    }
+
+    public void setCurrentTerminator1(BoardSpace currentTerminator1) {
+        this.currentTerminator1 = currentTerminator1;
+    }
+
+    public void setCurrentTerminator2(BoardSpace currentTerminator2) {
+        this.currentTerminator2 = currentTerminator2;
     }
 
     private void initializeGameBoard(int numRows, int numCols) {
         this.board = new Board(numRows, numCols);
         //this creates a fortress from a random boardSpace
-         Fortress.setFortress(board.findRandomEmptySpace());
+        Fortress.setFortress(board.findRandomEmptySpace());
 
         for (Piece p : team1.getTeamPieces()){
             BoardSpace space = board.findRandomEmptySpace();

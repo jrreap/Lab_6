@@ -8,7 +8,7 @@ public class ActionMove extends Action {
 
     @Override
     public boolean validAction() {
-        if(fromSpaceValid() && toSpaceValid(true) && (game.getPreviousPiece() != game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece()|| (game.getCurrentTeam().getTeamPieces().size() ==1))) {
+        if(fromSpaceValid() && toSpaceValid(true) && (game.getCurrentTeam().getPreviousPiece() != game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece()|| (game.getCurrentTeam().getTeamPieces().size() ==1))) {
             BoardSpace[][] spaces = game.getBoard().getSpaces();
             return spaces[fromSpaceRow][fromSpaceCol].getPiece().validPath(fromSpaceRow, fromSpaceCol, toSpaceRow, toSpaceCol);
         }
@@ -22,7 +22,7 @@ public class ActionMove extends Action {
         BoardSpace[][] spaces = game.getBoard().getSpaces();
         Piece piece = spaces[fromSpaceRow][fromSpaceCol].getPiece();
         spaces[fromSpaceRow][fromSpaceCol].removePiece();
-        game.setPreviousPiece(piece);
+        game.getCurrentTeam().setPreviousPiece(piece);
         game.changeTurn();
         if(game.getBoard().getSpaces()[toSpaceRow][toSpaceCol] == game.getFortress().getFortress()){
             System.out.println("The fortress rises around " + game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece().getSymbol() + " defending against all attacks");

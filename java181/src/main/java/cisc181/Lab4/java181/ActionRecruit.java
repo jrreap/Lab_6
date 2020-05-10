@@ -11,7 +11,7 @@ package cisc181.Lab4.java181;
         // Check to see if this is valid Recruit Action
         public boolean validAction() {
             // check if from space valid
-            if(fromSpaceValid() &&((game.getPreviousPiece() != game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece())|| (game.getCurrentTeam().getTeamPieces().size() ==1))) {
+            if(fromSpaceValid() &&((game.getCurrentTeam().getPreviousPiece() != game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece())|| (game.getCurrentTeam().getTeamPieces().size() ==1))) {
                 // get the piece that is in the from BoardSpace
                 Piece fromPiece = game.getBoard().getSpaces()
                         [fromSpaceRow][fromSpaceCol].getPiece();
@@ -57,7 +57,7 @@ package cisc181.Lab4.java181;
             //this changes the piece that is held in the previous piece slot to change the cooldowns
             Piece reruitPiece = spaces[fromSpaceRow][fromSpaceCol].getPiece();
             Piece piece = spaces[toSpaceRow][toSpaceCol].getPiece();
-            game.setPreviousPiece(reruitPiece);
+            game.getCurrentTeam().setPreviousPiece(reruitPiece);
             game.changeTurn();
             // this is handles if the piece is the Terminator
             if(spaces[toSpaceRow][toSpaceCol] == game.getFortress().getFortress()){

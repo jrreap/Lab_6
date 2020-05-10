@@ -74,7 +74,7 @@ public class PieceBlueHen extends PieceEggLaying implements Attacker{
     public void attack(int fromRow, int fromCol, int toRow, int toCol){
         this.incrementNumAttacked();
         this.speak();
-        System.out.println("Uses Blue Hen powers! - other piece removed from game.");
+        System.out.println("Uses Blue Hen powers!");
     }
 
     // Lays an egg that contains a copy of this piece. Assuming it is less than the MAX_EGGS constant.

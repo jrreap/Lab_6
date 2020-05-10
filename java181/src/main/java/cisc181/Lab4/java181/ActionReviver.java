@@ -7,22 +7,32 @@ public class ActionReviver extends Action {
     }
 
     public boolean validAction() {
-        int teamSize = game.getCurrentTeam().getDiedPieces().size()-1;
-        if((teamSize >=1) && ((game.getPreviousPiece() != game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece()) || (game.getCurrentTeam().getTeamPieces().size() ==1)) ){
-            return true;
+        int teamSize = game.getCurrentTeam().getDiedPieces().size() - 1;
+
+        if(game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece() instanceof PieceSaraConnor) {
+            if ((teamSize >= 1) && ((game.getCurrentTeam().getPreviousPiece() != game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece())
+                    || (game.getCurrentTeam().getTeamPieces().size() == 1))) {
+                return true;
+            } else {
+                return false;
+            }
         }
-        else{return false;}
+        else {
+            return false;
+        }
     }
 
     public void performAction(){
         int diedPieceLength = game.getCurrentTeam().getDiedPieces().size()-1;
         Random rand= new Random();
+
         BoardSpace revivedPieceSpace = game.getBoard().findRandomEmptySpace();
         int randomIndex = rand.nextInt(diedPieceLength);
+
         Piece piece = game.getCurrentTeam().getDiedPieces().get(randomIndex);
         game.getCurrentTeam().getTeamPieces().add(piece);
         game.getCurrentTeam().getDiedPieces().remove(piece);
         revivedPieceSpace.setPiece(piece);
-        game.setPreviousPiece(game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece());
+        game.getCurrentTeam().setPreviousPiece(game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece());
     }
 }

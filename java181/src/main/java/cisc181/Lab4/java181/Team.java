@@ -8,12 +8,15 @@ public class Team {
 
     private ArrayList<Piece> pieces;
     private ArrayList<Piece> diedPieces;
+    private Piece previousPiece;
+
 
     public Team(String name, String color, ArrayList<Piece> pieces){
         this.name = name;
         this.color = color;
         this.pieces = pieces;
-        this.diedPieces = null;
+        this.diedPieces = new ArrayList<>();
+        this.previousPiece = null;
     }
 
     public String getTeamName() {
@@ -29,7 +32,15 @@ public class Team {
     }
 
     public ArrayList<Piece> getDiedPieces() {
-        return pieces;
+        return diedPieces;
+    }
+
+    public void setPreviousPiece(Piece previousPiece) {
+        this.previousPiece = previousPiece;
+    }
+
+    public Piece getPreviousPiece() {
+        return previousPiece;
     }
 
     public void removePieceFromTeam(Piece piece){
