@@ -18,14 +18,14 @@ public class PieceSaraConnor extends Piece implements Recruiter, Reviver {
 
     public boolean validPath(int fromRow, int fromCol, int toRow, int toCol) {
         boolean returnValue = false;
-        
+
         if (fromRow == toRow) {
             if (fromCol != toCol) {
                 returnValue = true;
             }
         }
         else if (fromCol == toCol) {
-            if (fromCol != toCol) {
+            if (fromRow != toRow) {
                 returnValue = true;
             }
         }

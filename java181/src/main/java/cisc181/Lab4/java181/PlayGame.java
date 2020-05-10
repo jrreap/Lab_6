@@ -85,10 +85,13 @@ public class PlayGame {
         boolean notValidturn = true;
 
         while (notValidturn) {
+
+            // Create initial variables
             int fromRow;
             int fromColumn;
             int toRow;
             int toCol;
+
             if (action == 'M') {
 
                 System.out.println("Enter in the from row");
@@ -152,7 +155,6 @@ public class PlayGame {
                     notValidturn = false;
                 }
             }
-            // new code that creates a new action for SaraConor Piece
             else if (action == 'E'){
 
                 System.out.println("Enter in the from row");
@@ -188,7 +190,7 @@ public class PlayGame {
             System.out.println(game.toString());
         }
 
-        String output = String.format("The game has ended and team %s won!", game.getWinner());
+        String output = String.format("The game has ended and team %s won!", game.getWinner().getTeamName());
         System.out.println(output);
     }
 }
