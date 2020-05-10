@@ -24,27 +24,52 @@ public class ActionMove extends Action {
         spaces[fromSpaceRow][fromSpaceCol].removePiece();
         game.getCurrentTeam().setPreviousPiece(piece);
         game.changeTurn();
-        if(game.getBoard().getSpaces()[toSpaceRow][toSpaceCol] == game.getFortress().getFortress()){
-            System.out.println("The fortress rises around " + game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece().getSymbol() + " defending against all attacks");
+        if(spaces[toSpaceRow][toSpaceCol] == game.getCurrentTeam().getFortress().getFortress()){
+            System.out.println("The fortress rises around " + piece.getSymbol() + " defending against all attacks and recruits");
             if(piece instanceof PieceTerminator){
-                game.getFortress().reconstruct();
-                System.out.println("The Fortress is Greatly Strengthen now needing" + game.getFortress().getFortressHealth() + " attacks to bring it down");
+                game.getCurrentTeam().getFortress().reconstruct();
+                System.out.println("The Fortress is Greatly Strengthen now needing" + game.getCurrentTeam().getFortress().getFortressHealth() + " attacks to bring it down");
+                spaces[toSpaceRow][toSpaceCol].setPiece(piece);
+                game.getCurrentTeam().setCurrentTerminatorBoardSpace(spaces[toSpaceRow][toSpaceCol]);
+            }
+            else{
+                spaces[toSpaceRow][toSpaceCol].setPiece(piece);
             }
         }
         // this is so that we can keep track of the terminator piece to determine if the piece exists or not
-        if(piece instanceof PieceTerminator){
-            if(game.isTurn(game.team1)){
-                //this sets the currentTerminator1 board space to the new terminator board space to keep track of it
-                game.currentTerminator1 = spaces[toSpaceRow][toSpaceCol];
-                //this sets the piece to the cool down piece
-                spaces[toSpaceRow][toSpaceCol].setPiece(piece);
+        else if(spaces[toSpaceRow][toSpaceCol] == game.getOpponentTeam().getFortress().getFortress()){
+            if(piece instanceof PieceTerminator){
+                game.getOpponentTeam().getFortress().attackFortressTerminator();
+                ((PieceTerminator)piece).setHealth(((PieceTerminator)piece).getHealth()-1);
+                if(game.getOpponentTeam().getFortress().getFortressHealth()>2){
+                    System.out.println("The " + game.getCurrentTeam().getTeamName() + "'s Terminator accidentally stepped into the " + game.getOpponentTeam().getTeamName() + "'s fortress");
+                    game.getOpponentTeam().getFortress().PrintHealth();
+                    ((PieceTerminator)piece).PrintHealth();
+                }
+                else{
+                    game.getOpponentTeam().getFortress().PrintHealth();
+                    if(!(game.getOpponentTeam().getFortress().isOnce())){
+                        game.getOpponentTeam().getFortress().setFortress(null);
+                    }
+                    if(!(spaces[toSpaceRow][toSpaceCol].getPiece() instanceof Piece)){
+                        spaces[toSpaceRow][toSpaceCol].setPiece(piece);
+                        game.getCurrentTeam().setCurrentTerminatorBoardSpace(spaces[toSpaceRow][toSpaceCol]);
+                    }
+                    else{
+                        spaces[fromSpaceCol][fromSpaceCol].setPiece(piece);
+                        game.getCurrentTeam().setCurrentTerminatorBoardSpace(spaces[fromSpaceRow][fromSpaceCol]);
+                    }
+                }
             }
             else{
-                //this keeps track of the piece to make sure it exists
-                game.currentTerminator2 = spaces[toSpaceRow][toSpaceCol];
-                // this sets the piece to the cool down piece
-                spaces[toSpaceRow][toSpaceCol].setPiece(piece);
+                game.getCurrentTeam().getTeamPieces().remove(piece);
+                game.getCurrentTeam().getDiedPieces().add(piece);
+                System.out.println("The " + game.getCurrentTeam().getTeamName() + "'s "+ spaces[fromSpaceRow][fromSpaceCol].getPiece().getSymbol() + " tried to move into the " + game.getOpponentTeam().getTeamName() + "'s fortress and failed");
             }
+        }
+        else if(piece instanceof PieceTerminator){
+            game.getCurrentTeam().setCurrentTerminatorBoardSpace(spaces[toSpaceRow][toSpaceCol]);
+            spaces[toSpaceRow][toSpaceCol].setPiece(piece);
         }
         else{
             spaces[toSpaceRow][toSpaceCol].setPiece(piece);
