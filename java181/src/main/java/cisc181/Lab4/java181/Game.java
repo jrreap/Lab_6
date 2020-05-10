@@ -8,10 +8,7 @@ public abstract class Game {
     protected Team team1;
     protected Team team2;
     protected String turn;
-    protected BoardSpace currentTerminator1;
-    protected BoardSpace currentTerminator2;
     protected Piece previousPiece;
-    protected FortressBoardSpace Fortress;
 
     public Game(int rows, int columns, Team team1, Team team2){
         this.team1 = team1;
@@ -21,14 +18,16 @@ public abstract class Game {
 
         initializeGameBoard(rows, columns);
     }
-    //this handles the fortress
-    public FortressBoardSpace getFortress() {
-        return Fortress;
+
+    public Team getTeam1() {
+        return team1;
     }
 
-    public void setFortress(FortressBoardSpace fortress) {
-        Fortress = fortress;
+    public Team getTeam2() {
+        return team2;
     }
+
+    //this handles the fortress
 
     public void setPreviousPiece(Piece previousPiece) {
         this.previousPiece = previousPiece;
@@ -41,23 +40,24 @@ public abstract class Game {
     private void initializeGameBoard(int numRows, int numCols) {
         this.board = new Board(numRows, numCols);
         //this creates a fortress from a random boardSpace
-         Fortress.setFortress(board.findRandomEmptySpace());
 
         for (Piece p : team1.getTeamPieces()){
             BoardSpace space = board.findRandomEmptySpace();
             space.setPiece(p);
+            getTeam1().getFortress().setFortress(board.findRandomEmptySpace());
             //this handles if the piece PieceTerminator
             if(p instanceof PieceTerminator){
-                currentTerminator1 = space;
+                getTeam1().setCurrentTerminatorBoardSpace(space);
             }
         }
 
         for (Piece p : team2.getTeamPieces()){
             BoardSpace space = board.findRandomEmptySpace();
             space.setPiece(p);
+            getTeam2().getFortress().setFortress(board.findRandomEmptySpace());
             //this handles if the piece is PieceTerminator
             if(p instanceof PieceTerminator){
-                currentTerminator2 = space;
+                getTeam2().setCurrentTerminatorBoardSpace(space);
             }
         }
     }

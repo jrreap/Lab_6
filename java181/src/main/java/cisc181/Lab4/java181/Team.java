@@ -9,11 +9,26 @@ public class Team {
     private ArrayList<Piece> pieces;
     private ArrayList<Piece> diedPieces;
 
+    private FortressBoardSpace Fortress;
+    private BoardSpace CurrentTerminatorBoardSpace;
+
     public Team(String name, String color, ArrayList<Piece> pieces){
         this.name = name;
         this.color = color;
         this.pieces = pieces;
         this.diedPieces = null;
+    }
+
+    public void setCurrentTerminatorBoardSpace(BoardSpace currentTerminatorBoardSpace) {
+        CurrentTerminatorBoardSpace = currentTerminatorBoardSpace;
+    }
+
+    public FortressBoardSpace getFortress() {
+        return Fortress;
+    }
+
+    public void setFortress(FortressBoardSpace fortress) {
+        Fortress = fortress;
     }
 
     public String getTeamName() {
@@ -29,7 +44,7 @@ public class Team {
     }
 
     public ArrayList<Piece> getDiedPieces() {
-        return pieces;
+        return diedPieces;
     }
 
     public void removePieceFromTeam(Piece piece){

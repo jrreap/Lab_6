@@ -1,8 +1,8 @@
 package cisc181.Lab4.java181;
 
-    public class FortressBoardSpace {
-        private int FortressHealth;
-        private BoardSpace Fortress;
+public class FortressBoardSpace{
+        private int FortressHealth = 2;
+    private BoardSpace Fortress;
         private boolean Once = true;
 
         public int getFortressHealth() {
@@ -34,6 +34,18 @@ package cisc181.Lab4.java181;
             if(Once) {
                 setFortressHealth(getFortressHealth() + 2);
                 Once = false;
+            }
+        }
+
+        public void PrintHealth(){
+            if(getFortressHealth() >=2){
+                System.out.println("The fortress is still strong needing" + getFortressHealth() + "attacks to take it down");
+            }
+            else if(getFortressHealth() == 1){
+                System.out.println("the fortress is greatly weakened and will only defend against anything other than the Terminator");
+            }
+            else{
+                System.out.println("the fortress falls");
             }
         }
     }
