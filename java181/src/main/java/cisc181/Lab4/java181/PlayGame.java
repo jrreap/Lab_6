@@ -153,7 +153,7 @@ public class PlayGame {
                 }
             }
             // new code that creates a new action for SaraConor Piece
-            else if (action == 'E' && reviveAvailable){
+            else if (action == 'E'){
 
                 System.out.println("Enter in the from row");
                 fromRow = scanner.nextInt();
@@ -167,7 +167,7 @@ public class PlayGame {
                     reviveAvailable = false;
                 }
                 else if (!reviveAvailable){
-                    System.out.println("You are out of medical supplies");
+                    System.out.println("You have no more revives left!");
                     notValidturn = false;
                 }
                 else{
@@ -176,7 +176,8 @@ public class PlayGame {
                 }
             }
             else {
-                System.out.println("That was not a valid move configuration!");
+                System.out.println("That was not a valid action! Please input one of the below action commands!");
+                notValidturn = false;
             }
         }
     }

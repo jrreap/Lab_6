@@ -7,11 +7,11 @@ public class Game181 extends Game {
 
     @Override
     public boolean isAWinner() {
+        Piece terminator1 = getCurrentTerminator1().getPiece();
+        Piece terminator2 = getCurrentTerminator2().getPiece();
+
         if (isGameEnded()) {
-            if(team1.getTeamPieces().size() > 0 && team2.getTeamPieces().size() == 0) {
-                return true;
-            }
-            else if (team2.getTeamPieces().size() > 0 && team1.getTeamPieces().size() == 0) {
+            if(!team1.getTeamPieces().contains(terminator1) || !team2.getTeamPieces().contains(terminator2)) {
                 return true;
             }
             else {
@@ -24,7 +24,9 @@ public class Game181 extends Game {
     @Override
     public Team getWinner() {
         if (isAWinner()){
-            if (team1.getTeamPieces().size() > 0){
+            Piece terminator1 = getCurrentTerminator1().getPiece();
+
+            if (team1.getTeamPieces().contains(terminator1)){
                 return team1;
             }
             else {

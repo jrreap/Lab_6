@@ -69,8 +69,12 @@ public class ActionAttack extends Action {
                     game.getFortress().attackFortress();
                     spaces[fromSpaceRow][fromSpaceCol].removePiece();
                     spaces[toSpaceRow][toSpaceCol].removePiece();
-                    game.getOpponentTeam().getTeamPieces().remove(piece);
+
+                    // Update our dead pieces array and remove it from the team
+                    game.getOpponentTeam().removePieceFromTeam(piece);
+
                     spaces[toSpaceRow][toSpaceCol].setPiece(attackerPiece);
+
                 } else {
                     game.getFortress().attackFortressTerminator();
                     if(game.getFortress().getFortressHealth() >=1){
@@ -88,14 +92,14 @@ public class ActionAttack extends Action {
             else {
                 spaces[fromSpaceRow][fromSpaceCol].removePiece();
                 spaces[toSpaceRow][toSpaceCol].removePiece();
-                game.getOpponentTeam().getTeamPieces().remove(piece);
+                game.getOpponentTeam().removePieceFromTeam(piece);
                 spaces[toSpaceRow][toSpaceCol].setPiece(attackerPiece);
             }
         }
         else {
             spaces[fromSpaceRow][fromSpaceCol].removePiece();
             spaces[toSpaceRow][toSpaceCol].removePiece();
-            game.getOpponentTeam().getTeamPieces().remove(piece);
+            game.getOpponentTeam().removePieceFromTeam(piece);
             spaces[toSpaceRow][toSpaceCol].setPiece(attackerPiece);
 
             if (attackerPiece instanceof PieceTerminator) {

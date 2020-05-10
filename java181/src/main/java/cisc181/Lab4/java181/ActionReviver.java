@@ -7,7 +7,7 @@ public class ActionReviver extends Action {
     }
 
     public boolean validAction() {
-        int teamSize = game.getCurrentTeam().getDiedPieces().size() - 1;
+        int teamSize = game.getCurrentTeam().getDiedPieces().size();
 
         if(game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece() instanceof PieceSaraConnor) {
             if ((teamSize >= 1) && ((game.getCurrentTeam().getPreviousPiece() != game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece())
@@ -23,7 +23,7 @@ public class ActionReviver extends Action {
     }
 
     public void performAction(){
-        int diedPieceLength = game.getCurrentTeam().getDiedPieces().size()-1;
+        int diedPieceLength = game.getCurrentTeam().getDiedPieces().size();
         Random rand= new Random();
 
         BoardSpace revivedPieceSpace = game.getBoard().findRandomEmptySpace();
