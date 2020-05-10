@@ -48,20 +48,6 @@ public class PieceTerminator extends Piece implements Attacker {
         System.out.println("Are you Sarah Connor?!");
     }
 
-    public void PrintHealth(){
-        if( getHealth() == 2){
-            System.out.println("The terminator is at full health needing " + getHealth() + " attacks to be taken down");
-        }
-        else{System.out.println("The terminator is weaken only taking 1 attack to be taken down");}
-    }
-
-    public void PrintConviction(){
-        if(getConviction() == 2){
-            System.out.println("The terminator is at full conviction needing " + getConviction() + " attacks to be taken down");
-        }
-        else{System.out.println("The terminator is weaken only taking 1 recruit to be taken down");}
-    }
-
     public int getNumAttacked() {
         return numAttacked;
     }
