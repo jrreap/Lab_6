@@ -2,16 +2,16 @@ package cisc181.Lab4.java181;
 
 public class ActionAttack extends Action {
 
-   // constructor
+    // constructor
     public ActionAttack(Game181 game, int fromSpaceRow, int fromSpaceCol, int toSpaceRow, int toSpaceCol) {
-        super(game, fromSpaceRow,fromSpaceCol,toSpaceRow,toSpaceCol);
+        super(game, fromSpaceRow, fromSpaceCol, toSpaceRow, toSpaceCol);
     }
 
     // Check to see if this is valid Attack Action
     public boolean validAction() {
 
         // check if from space valid
-        if(fromSpaceValid() && (game.getPreviousPiece() != game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece()|| (game.getCurrentTeam().getTeamPieces().size() ==1))) {
+        if (fromSpaceValid() && (game.getPreviousPiece() != game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece() || (game.getCurrentTeam().getTeamPieces().size() == 1))) {
             // get the piece that is in the from BoardSpace
             Piece fromPiece = game.getBoard().getSpaces()[fromSpaceRow][fromSpaceCol].getPiece();
             // check to see if this piece has implemented the Attacker interface
@@ -28,9 +28,9 @@ public class ActionAttack extends Action {
         return false;
     }
 
-   // this method calls the Piece's attack method
+    // this method calls the Piece's attack method
 
-    private void attack(){
+    private void attack() {
         // Get the piece that is in the fromSpace
         Piece attPiece = game.getBoard()
                 .getSpaces()[fromSpaceRow][fromSpaceCol].getPiece();
@@ -38,20 +38,18 @@ public class ActionAttack extends Action {
         // we can't call the attack method on all pieces in the game
         // we can only call these methods on pieces that have this method - ie - Pieces that have implemented the Attacker Interface
         // so we will cast the Piece to its subclass type so we can call attack
-        if(attPiece instanceof PieceBlueHen){
+        if (attPiece instanceof PieceBlueHen) {
             // cast and call BlueHen's attack method
-             ((PieceBlueHen) attPiece)
-                    .attack(fromSpaceRow,fromSpaceCol,toSpaceRow,toSpaceCol);
-        }
-        else if(attPiece instanceof PiecePenguin){
+            ((PieceBlueHen) attPiece)
+                    .attack(fromSpaceRow, fromSpaceCol, toSpaceRow, toSpaceCol);
+        } else if (attPiece instanceof PiecePenguin) {
             // cast and call Penguin's attack method
             ((PiecePenguin) attPiece)
-                    .attack(fromSpaceRow,fromSpaceCol,toSpaceRow,toSpaceCol);
-        }
-        else if(attPiece instanceof PieceTerminator){
+                    .attack(fromSpaceRow, fromSpaceCol, toSpaceRow, toSpaceCol);
+        } else if (attPiece instanceof PieceTerminator) {
             //cast and call Terminator's attack method
-            ((PieceTerminator)attPiece)
-                    .attack(fromSpaceRow,fromSpaceCol,toSpaceRow,toSpaceCol);
+            ((PieceTerminator) attPiece)
+                    .attack(fromSpaceRow, fromSpaceCol, toSpaceRow, toSpaceCol);
         }
     }
 
@@ -65,7 +63,7 @@ public class ActionAttack extends Action {
         game.changeTurn();
         if (spaces[toSpaceRow][toSpaceCol] == game.getFortress().getFortress()) {
             if (attackerPiece instanceof PieceTerminator) {
-                if(game.getFortress().getFortressHealth() == 1) {
+                if (game.getFortress().getFortressHealth() == 1) {
                     System.out.println("The fortress fails to protect" + piece.getSymbol() + "and was killed by the Terminator");
                     game.getFortress().attackFortress();
                     spaces[fromSpaceRow][fromSpaceCol].removePiece();
@@ -74,33 +72,41 @@ public class ActionAttack extends Action {
                     spaces[toSpaceRow][toSpaceCol].setPiece(attackerPiece);
                 } else {
                     game.getFortress().attackFortressTerminator();
-                    if(game.getFortress().getFortressHealth() >=1){
+                    if (game.getFortress().getFortressHealth() >= 1) {
                         System.out.println("The fortress is only able to defend against" + game.getFortress().getFortressHealth() + "attacks");
+                    } else {
+                        System.out.println("The fortress falls");
                     }
-                    else{System.out.println("The fortress falls");}
                 }
-            } else{game.Fortress.attackFortress();}
-        }
-        else if (piece instanceof PieceTerminator && (spaces[toSpaceRow][toSpaceCol] != game.getFortress().getFortress())) {
+            } else {
+                game.Fortress.attackFortress();
+                System.out.println("The fortress protects " + piece.getSymbol() + " from " + attackerPiece.getSymbol() + " but only can withstand " + game.getFortress().getFortressHealth() + " left");
+            }
+        } else if (piece instanceof PieceTerminator && (spaces[toSpaceRow][toSpaceCol] != game.getFortress().getFortress())) {
             ((PieceTerminator) piece).setHealth(((PieceTerminator) piece).getHealth() - 1);
             if (((PieceTerminator) piece).getHealth() >= 1) {
                 System.out.println("The Terminator is Weaken, " + ((PieceTerminator) piece).getHealth() + " more attack will kill him");
-            }
-            else if (((PieceTerminator) piece).getHealth() == 0) {
+            } else {
                 spaces[fromSpaceRow][fromSpaceCol].removePiece();
                 spaces[toSpaceRow][toSpaceCol].removePiece();
                 game.getOpponentTeam().getTeamPieces().remove(piece);
                 spaces[toSpaceRow][toSpaceCol].setPiece(attackerPiece);
-                }
-        else {
+            }
+        } else if (attackerPiece instanceof PieceTerminator) {
             spaces[fromSpaceRow][fromSpaceCol].removePiece();
             spaces[toSpaceRow][toSpaceCol].removePiece();
             game.getOpponentTeam().getTeamPieces().remove(piece);
             spaces[toSpaceRow][toSpaceCol].setPiece(attackerPiece);
-            //this changes the piece that is in cooldown for one turn
+            if (game.getCurrentTeam().equals(game.team1)) {
+                game.currentTerminator1 = spaces[fromSpaceRow][toSpaceCol];
+            } else {
+                game.currentTerminator2 = spaces[toSpaceRow][toSpaceCol];
             }
+        } else {
+            spaces[fromSpaceRow][fromSpaceCol].removePiece();
+            spaces[toSpaceRow][toSpaceCol].removePiece();
+            game.getOpponentTeam().getTeamPieces().remove(piece);
+            spaces[toSpaceRow][toSpaceCol].setPiece(attackerPiece);
         }
     }
-
-
 }
