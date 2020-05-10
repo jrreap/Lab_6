@@ -74,10 +74,13 @@ public class ActionAttack extends Action {
             // if the attacker is the a terminator
             if (attackerPiece instanceof PieceTerminator) {
                 //this tests to see if the terminator is strong enough to smash trough the fortress and affect the piece inside
-                if (game.getOpponentTeam().getFortress().getFortressHealth() == 1) {
+                if (game.getOpponentTeam().getFortress().getFortressHealth() <= 1) {
                     if(!(spaces[toSpaceRow][toSpaceCol].getPiece() instanceof PieceTerminator)) {
                         System.out.println("The fortress fails to protect" + piece.getSymbol() + "and was killed by the Terminator");
                         game.getOpponentTeam().getFortress().attackFortress();
+                        if((!game.getOpponentTeam().getFortress().isOnce())){
+                            game.getOpponentTeam().getFortress().setFortress(null);
+                        }
                         HelperFunction(piece);
                         spaces[toSpaceRow][toSpaceCol].setPiece(attackerPiece);
                         game.getCurrentTeam().setCurrentTerminatorBoardSpace(spaces[toSpaceRow][toSpaceCol]);
@@ -94,8 +97,20 @@ public class ActionAttack extends Action {
                 }
             } else {
                 game.getOpponentTeam().getFortress().attackFortress();
-                System.out.println("The fortress protects " + piece.getSymbol() + " from " + attackerPiece.getSymbol());
-                game.getOpponentTeam().getFortress().PrintHealth();
+                if(game.getOpponentTeam().getFortress().getFortressHealth() >=1){
+                    System.out.println("The fortress protects " + piece.getSymbol() + " from " + attackerPiece.getSymbol());
+                    game.getOpponentTeam().getFortress().PrintHealth();
+                }
+                else{
+                    game.getOpponentTeam().getFortress().PrintHealth();
+                    if (spaces[toSpaceRow][toSpaceCol].getPiece() instanceof Piece){
+                        spaces[fromSpaceRow][fromSpaceCol].setPiece(attackerPiece);
+                    }
+                    else{
+                        spaces[toSpaceRow][toSpaceCol].setPiece(attackerPiece);
+                    }
+                }
+
             }
         }
         else if (piece instanceof PieceTerminator && (spaces[toSpaceRow][toSpaceCol] != game.getOpponentTeam().getFortress().getFortress())) {
@@ -106,11 +121,13 @@ public class ActionAttack extends Action {
                 HelperFunction(piece);
                 spaces[toSpaceRow][toSpaceCol].setPiece(attackerPiece);
             }
-        } else if (attackerPiece instanceof PieceTerminator) {
+        }
+        else if (attackerPiece instanceof PieceTerminator) {
             HelperFunction(piece);
             spaces[toSpaceRow][toSpaceCol].setPiece(attackerPiece);
             game.getCurrentTeam().setCurrentTerminatorBoardSpace(spaces[toSpaceRow][toSpaceCol]);
-        } else {
+        }
+        else {
             HelperFunction(piece);
             spaces[toSpaceRow][toSpaceCol].setPiece(attackerPiece);
         }

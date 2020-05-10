@@ -48,6 +48,9 @@ public class ActionMove extends Action {
                 }
                 else{
                     game.getOpponentTeam().getFortress().PrintHealth();
+                    if(!(game.getOpponentTeam().getFortress().isOnce())){
+                        game.getOpponentTeam().getFortress().setFortress(null);
+                    }
                     if(!(spaces[toSpaceRow][toSpaceCol].getPiece() instanceof Piece)){
                         spaces[toSpaceRow][toSpaceCol].setPiece(piece);
                         game.getCurrentTeam().setCurrentTerminatorBoardSpace(spaces[toSpaceRow][toSpaceCol]);

@@ -30,7 +30,11 @@ public class FortressBoardSpace{
             attackFortress();
         }
 
-        public void reconstruct(){
+    public boolean isOnce() {
+        return Once;
+    }
+
+    public void reconstruct(){
             if(Once) {
                 setFortressHealth(getFortressHealth() + 2);
                 Once = false;
