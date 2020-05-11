@@ -26,6 +26,24 @@ public class PieceTerminator extends Piece implements Attacker {
         this.conviction = conviction;
     }
 
+    public void printConviction(){
+        if(getConviction() == 1){
+            System.out.println(" The Terminator's conviction is weakened and only gets 1 more recruit");
+        }
+        else {
+            System.out.println(" The Terminator was recruited");
+        }
+    }
+
+    public void printHealth(){
+        if(getHealth() == 1){
+            System.out.println("The Terminator is weakened an only needs one more attack to kill it");
+        }
+        else{
+            System.out.println(" The Terminator falls");
+        }
+    }
+
     public int getHealth() {
         return health;
     }

@@ -13,7 +13,7 @@ package cisc181.Lab4.java181;
             FortressHealth = fortressHealth;
         }
 
-        public void attackFortress(){
+        public void helperAttackFortress(){
             setFortressHealth(getFortressHealth()-1);
         }
 
@@ -25,9 +25,23 @@ package cisc181.Lab4.java181;
             return Fortress;
         }
 
-        public void attackFortressTerminator(){
-            attackFortress();
-            attackFortress();
+        public void attackFortress(Piece piece){
+            if( piece instanceof PieceTerminator){
+                helperAttackFortress();
+                helperAttackFortress();
+            }
+            else{
+                helperAttackFortress();
+            }
+        }
+
+        public void printFortressHealth(){
+            if(getFortressHealth()>=2){
+                System.out.println("The Fortress is very strong and needs " + getFortressHealth() + " attacks to take it down");
+            }
+            else{
+                System.out.println("The fortress is weakened and only needs 1 attack to take it down");
+            }
         }
 
         public void reconstruct(){

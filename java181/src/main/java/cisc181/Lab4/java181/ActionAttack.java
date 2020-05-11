@@ -54,7 +54,30 @@ public class ActionAttack extends Action {
                     .attack(fromSpaceRow,fromSpaceCol,toSpaceRow,toSpaceCol);
         }
     }
+public void helperFunction() {
+    BoardSpace[][] spaces = game.getBoard().getSpaces();
+    spaces[fromSpaceRow][fromSpaceCol].removePiece();
+    spaces[toSpaceRow][toSpaceCol].removePiece();
+    game.getOpponentTeam().removePieceFromTeam(spaces[toSpaceRow][toSpaceCol].getPiece());
+}
 
+public void placePiece(){
+        BoardSpace[][] spaces = game.getBoard().getSpaces();
+        if(spaces[fromSpaceRow][fromSpaceCol].getPiece() instanceof PieceTerminator){
+            if(spaces[toSpaceRow][toSpaceCol].getPiece() instanceof PieceTerminator){
+                if(((PieceTerminator)spaces[toSpaceRow][toSpaceCol].getPiece()).getHealth() == 0){
+                    game.getCurrentTeam().setCurrentTerminator(spaces[toSpaceRow][toSpaceCol]);
+                    spaces[toSpaceRow][toSpaceCol].setPiece(spaces[fromSpaceRow][toSpaceCol].getPiece());
+                }
+                else{((PieceTerminator)spaces[toSpaceRow][toSpaceCol].getPiece()).printHealth();}
+            }
+            else {
+                game.getCurrentTeam().setCurrentTerminator(spaces[toSpaceRow][toSpaceCol]);
+                spaces[toSpaceRow][toSpaceCol].setPiece(spaces[fromSpaceRow][toSpaceCol].getPiece());
+            }
+        }
+        else{spaces[toSpaceRow][toSpaceCol].setPiece(spaces[fromSpaceRow][fromSpaceCol].getPiece());}
+}
 
     public void performAction() {
         attack();
@@ -62,58 +85,41 @@ public class ActionAttack extends Action {
         Piece piece = spaces[toSpaceRow][toSpaceCol].getPiece();
         Piece attackerPiece = spaces[fromSpaceRow][fromSpaceCol].getPiece();
         game.getCurrentTeam().setPreviousPiece(attackerPiece);
-        if (spaces[toSpaceRow][toSpaceCol] == game.getFortress().getFortress()) {
+        if (spaces[toSpaceRow][toSpaceCol] == game.getOpponentTeam().getFortress().getFortress()) {
             if (attackerPiece instanceof PieceTerminator) {
-                if(game.getFortress().getFortressHealth() == 1) {
+                if(game.getOpponentTeam().getFortress().getFortressHealth() == 1) {
                     System.out.println("The fortress fails to protect" + piece.getSymbol() + "and was killed by the Terminator");
-                    game.getFortress().attackFortress();
-                    spaces[fromSpaceRow][fromSpaceCol].removePiece();
-                    spaces[toSpaceRow][toSpaceCol].removePiece();
-
+                    game.getOpponentTeam().getFortress().attackFortress(attackerPiece);
+                    helperFunction();
+                    placePiece();
                     // Update our dead pieces array and remove it from the team
-                    game.getOpponentTeam().removePieceFromTeam(piece);
-
-                    spaces[toSpaceRow][toSpaceCol].setPiece(attackerPiece);
-
-                } else {
-                    game.getFortress().attackFortressTerminator();
-                    if(game.getFortress().getFortressHealth() >=1){
-                        System.out.println("The fortress is only able to defend against" + game.getFortress().getFortressHealth() + "attacks");
-                    }
-                    else{System.out.println("The fortress falls");}
                 }
-            } else{game.Fortress.attackFortress();}
+                else {
+                    game.getOpponentTeam().getFortress().attackFortress(piece);
+                    game.getOpponentTeam().getFortress().printFortressHealth();
+                }
+            }
+            else{
+                game.getOpponentTeam().getFortress().attackFortress(piece);
+                game.getOpponentTeam().getFortress().printFortressHealth();
+            }
         }
-        else if (piece instanceof PieceTerminator && (spaces[toSpaceRow][toSpaceCol] != game.getFortress().getFortress())) {
+        else if (piece instanceof PieceTerminator && (spaces[toSpaceRow][toSpaceCol] != game.getOpponentTeam().getFortress().getFortress())) {
             ((PieceTerminator) piece).setHealth(((PieceTerminator) piece).getHealth() - 1);
             if (((PieceTerminator) piece).getHealth() >= 1) {
-                System.out.println("The Terminator is Weakened, " + ((PieceTerminator) piece).getHealth() + " more attack will kill him");
+                ((PieceTerminator)piece).printHealth();
             }
             else {
-                spaces[fromSpaceRow][fromSpaceCol].removePiece();
-                spaces[toSpaceRow][toSpaceCol].removePiece();
-                game.getOpponentTeam().removePieceFromTeam(piece);
-                spaces[toSpaceRow][toSpaceCol].setPiece(attackerPiece);
+                helperFunction();
+                placePiece();
             }
         }
         else {
-            spaces[fromSpaceRow][fromSpaceCol].removePiece();
-            spaces[toSpaceRow][toSpaceCol].removePiece();
-            game.getOpponentTeam().removePieceFromTeam(piece);
-            spaces[toSpaceRow][toSpaceCol].setPiece(attackerPiece);
-
-            if (attackerPiece instanceof PieceTerminator) {
-                if(game.getCurrentTeam().equals(game.team1)){
-                    game.setCurrentTerminator1(spaces[toSpaceRow][toSpaceCol]);
-                }
-                else {
-                    game.setCurrentTerminator2(spaces[toSpaceRow][toSpaceCol]);
-                }
-            }
-
-            //this changes the piece that is in cooldown for one turn
+            helperFunction();
+            placePiece();
         }
 
+            //this changes the piece that is in cooldown for one turn
         game.changeTurn();
     }
 

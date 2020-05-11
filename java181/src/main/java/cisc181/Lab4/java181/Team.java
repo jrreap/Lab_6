@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class Team {
     private String name;
     private String color;
+    private FortressBoardSpace Fortress;
+    private BoardSpace currentTerminator;
 
     private ArrayList<Piece> pieces;
     private ArrayList<Piece> diedPieces;
@@ -17,10 +19,27 @@ public class Team {
         this.pieces = pieces;
         this.diedPieces = new ArrayList<>();
         this.previousPiece = null;
+        this.Fortress = new FortressBoardSpace();
     }
 
     public String getTeamName() {
         return name;
+    }
+
+    public FortressBoardSpace getFortress() {
+        return Fortress;
+    }
+
+    public void setFortress(FortressBoardSpace fortress) {
+        Fortress = fortress;
+    }
+
+    public BoardSpace getCurrentTerminator() {
+        return currentTerminator;
+    }
+
+    public void setCurrentTerminator(BoardSpace currentTerminator1) {
+        this.currentTerminator = currentTerminator1;
     }
 
     public String getTeamColor() {

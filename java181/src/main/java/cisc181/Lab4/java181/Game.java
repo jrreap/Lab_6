@@ -8,63 +8,46 @@ public abstract class Game {
     protected Team team1;
     protected Team team2;
     protected String turn;
-    protected BoardSpace currentTerminator1;
-    protected BoardSpace currentTerminator2;
-    protected FortressBoardSpace Fortress;
 
     public Game(int rows, int columns, Team team1, Team team2){
         this.team1 = team1;
         this.team2 = team2;
         this.turn = team1.getTeamName();
-        this.Fortress = new FortressBoardSpace();
 
         initializeGameBoard(rows, columns);
     }
+
+    public Team getTeam2() {
+        return team2;
+    }
+
+    public Team getTeam1() {
+        return team1;
+    }
+
     //this handles the fortress
-    public FortressBoardSpace getFortress() {
-        return Fortress;
-    }
-
-    public void setFortress(FortressBoardSpace fortress) {
-        Fortress = fortress;
-    }
-
-    public BoardSpace getCurrentTerminator1() {
-        return currentTerminator1;
-    }
-
-    public BoardSpace getCurrentTerminator2() {
-        return currentTerminator2;
-    }
-
-    public void setCurrentTerminator1(BoardSpace currentTerminator1) {
-        this.currentTerminator1 = currentTerminator1;
-    }
-
-    public void setCurrentTerminator2(BoardSpace currentTerminator2) {
-        this.currentTerminator2 = currentTerminator2;
-    }
 
     private void initializeGameBoard(int numRows, int numCols) {
         this.board = new Board(numRows, numCols);
         //this creates a fortress from a random boardSpace
-        Fortress.setFortress(board.findRandomEmptySpace());
 
         for (Piece p : team1.getTeamPieces()){
+            getTeam1().getFortress().setFortress(board.findRandomEmptySpace());
             BoardSpace space = board.findRandomEmptySpace();
             space.setPiece(p);
             //this handles if the piece PieceTerminator
             if(p instanceof PieceTerminator){
-                currentTerminator1 = space;
+                getTeam1().setCurrentTerminator(space);
             }
         }
 
         for (Piece p : team2.getTeamPieces()){
+            getTeam2().getFortress().setFortress(board.findRandomEmptySpace());
             BoardSpace space = board.findRandomEmptySpace();
             space.setPiece(p);
             //this handles if the piece is PieceTerminator
             if(p instanceof PieceTerminator){
-                currentTerminator2 = space;
+                getTeam2().setCurrentTerminator(space);
             }
         }
     }
