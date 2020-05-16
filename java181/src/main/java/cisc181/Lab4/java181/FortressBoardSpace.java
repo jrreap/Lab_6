@@ -3,7 +3,13 @@ package cisc181.Lab4.java181;
     public class FortressBoardSpace {
         private int FortressHealth;
         private BoardSpace Fortress;
-        private boolean Once = true;
+        private boolean Once;
+
+        public FortressBoardSpace(){
+            this.FortressHealth = 2;
+            this.Fortress = new BoardSpace(0,0, "");
+            this.Once = true;
+        }
 
         public int getFortressHealth() {
             return FortressHealth;

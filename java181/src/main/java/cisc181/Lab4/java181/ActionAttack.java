@@ -65,18 +65,26 @@ public void placePiece(){
         BoardSpace[][] spaces = game.getBoard().getSpaces();
         if(spaces[fromSpaceRow][fromSpaceCol].getPiece() instanceof PieceTerminator){
             if(spaces[toSpaceRow][toSpaceCol].getPiece() instanceof PieceTerminator){
-                if(((PieceTerminator)spaces[toSpaceRow][toSpaceCol].getPiece()).getHealth() == 0){
+                if(((PieceTerminator)spaces[toSpaceRow][toSpaceCol].getPiece()).getHealth() == 1){
                     game.getCurrentTeam().setCurrentTerminator(spaces[toSpaceRow][toSpaceCol]);
+                    helperFunction();
                     spaces[toSpaceRow][toSpaceCol].setPiece(spaces[fromSpaceRow][toSpaceCol].getPiece());
                 }
-                else{((PieceTerminator)spaces[toSpaceRow][toSpaceCol].getPiece()).printHealth();}
+                else{
+                    ((PieceTerminator)spaces[toSpaceRow][toSpaceCol].getPiece()).printHealth();
+                    ((PieceTerminator)spaces[toSpaceRow][toSpaceCol].getPiece()).setHealth(((PieceTerminator)spaces[toSpaceRow][toSpaceCol].getPiece()).getHealth()-1);
+                }
             }
             else {
                 game.getCurrentTeam().setCurrentTerminator(spaces[toSpaceRow][toSpaceCol]);
+                helperFunction();
                 spaces[toSpaceRow][toSpaceCol].setPiece(spaces[fromSpaceRow][toSpaceCol].getPiece());
             }
         }
-        else{spaces[toSpaceRow][toSpaceCol].setPiece(spaces[fromSpaceRow][fromSpaceCol].getPiece());}
+        else{
+            spaces[toSpaceRow][toSpaceCol].setPiece(spaces[fromSpaceRow][fromSpaceCol].getPiece());
+            helperFunction();
+        }
 }
 
     public void performAction() {
@@ -104,18 +112,7 @@ public void placePiece(){
                 game.getOpponentTeam().getFortress().printFortressHealth();
             }
         }
-        else if (piece instanceof PieceTerminator && (spaces[toSpaceRow][toSpaceCol] != game.getOpponentTeam().getFortress().getFortress())) {
-            ((PieceTerminator) piece).setHealth(((PieceTerminator) piece).getHealth() - 1);
-            if (((PieceTerminator) piece).getHealth() >= 1) {
-                ((PieceTerminator)piece).printHealth();
-            }
-            else {
-                helperFunction();
-                placePiece();
-            }
-        }
-        else {
-            helperFunction();
+        else{
             placePiece();
         }
 

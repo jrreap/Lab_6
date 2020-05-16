@@ -65,7 +65,7 @@ package cisc181.Lab4.java181;
                 game.getOpponentTeam().getFortress().printFortressHealth();
             } else {
                 game.getOpponentTeam().getTeamPieces().remove(piece);
-                game.getCurrentTeam().getTeamPieces().add(piece);
+                game.getCurrentTeam().addPieceToTeam(piece);
             }
         }
 
