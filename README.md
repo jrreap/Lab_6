@@ -1,5 +1,7 @@
-# Lab_6
+# CISC 181 Lab_6
 Lab java group project
+
+Repository holding all the code for the Final Java "Game" project
 
 ## Crash course on Git in Android Studio
 
